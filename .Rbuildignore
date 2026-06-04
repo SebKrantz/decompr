@@ -8,3 +8,5 @@ kww_example.R
 kww_experimental.R
 ^\.github$
 ^CRAN-SUBMISSION$
+^\.positai$
+^\.claude$
