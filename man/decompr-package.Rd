@@ -2,6 +2,7 @@
 % Please edit documentation in R/decompr.R
 \docType{package}
 \name{decompr-package}
+\alias{decompr}
 \alias{decompr-package}
 \title{Global Value Chain Decomposition}
 \description{

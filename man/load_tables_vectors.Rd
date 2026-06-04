@@ -29,7 +29,7 @@ countries the same as in x.}
 
 \item{k}{character. A vector of country or region names of length G, arranged in the same order as they occur in the rows and columns of x, y.}
 
-\item{i}{character. A vector of country or region names of length N, arranged in the same order as they occur in the rows and columns of x and rows of y.}
+\item{i}{character. A vector of industry names of length N, arranged in the same order as they occur in the rows and columns of x and rows of y.}
 
 \item{o}{numeric. A vector of final outputs for each country-industry matching the rows of x and y. If not provided it will be computed as \code{rowSums(x) + rowSums(y)}.}
 
