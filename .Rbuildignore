@@ -10,3 +10,4 @@ kww_experimental.R
 ^CRAN-SUBMISSION$
 ^\.positai$
 ^\.claude$
+^misc$
