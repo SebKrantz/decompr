@@ -10,3 +10,7 @@ kww_experimental.R
 ^CRAN-SUBMISSION$
 ^\.positai$
 ^\.claude$
+^misc$
+^.*\.dll$
+.DS_Store
+^\.DS_Store$

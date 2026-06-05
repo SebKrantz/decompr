@@ -1,3 +1,15 @@
+decompr 6.9.0
+=======================
+* Added the Borin-Mancini (2019) decomposition via the new `bm()` function (also available
+  through `decomp(method = "bm")`). It decomposes gross exports into up to 13 value-added and
+  GVC terms at the country, sector, or bilateral-sector level, under the exporter/source or
+  world/sink perspective. It is the R counterpart of `decompose()` in the Julia package
+  `ICIO.jl` and reproduces the Stata `icio` command's output.
+* The `kww()` documentation now notes that the KWW decomposition is biased (it systematically
+  underestimates foreign value added) and points to `bm(perspective = "world", approach = "sink")`
+  for the Borin-Mancini correction. Cross-references to `bm()` were added throughout.
+
+
 decompr 6.4.0
 =======================
 * redo documentation

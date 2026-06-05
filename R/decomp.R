@@ -14,9 +14,9 @@
 #' @param i character. A vector of country or region names of length N, arranged in the same order as they occur in the rows and columns of x and rows of y.
 #' @param o numeric. A vector of final outputs for each country-industry matching the rows of x and y. If not provided it will be computed as \code{rowSums(x) + rowSums(y)}.
 #' @param v numeric. A vector of value added for each country-industry matching the columns of x. If not provided it will be computed as \code{o - colSums(x)}.
-#' @param method character. The decomposition method, either \code{"leontief"}, \code{"kww"} or \code{"wwz"}.
-#' @param \dots further arguments passed to \code{\link{leontief}}, \code{\link{kww}} or \code{\link{wwz}}.
-#' @return Depends on the decomposition, see \code{\link{leontief}}, \code{\link{kww}} or \code{\link{wwz}}.
+#' @param method character. The decomposition method, either \code{"leontief"}, \code{"kww"}, \code{"wwz"} or \code{"bm"}.
+#' @param \dots further arguments passed to \code{\link{leontief}}, \code{\link{kww}}, \code{\link{wwz}} or \code{\link{bm}}.
+#' @return Depends on the decomposition, see \code{\link{leontief}}, \code{\link{kww}}, \code{\link{wwz}} or \code{\link{bm}}.
 #'  % The output when using the WWZ algorithm is a matrix with dimensions GNG*19.
 #'  % Whereby 19 is the 16 objects the WWZ algorithm decomposes exports into, plus three checksums.
 #'  % GNG represents source country, using industry and using country.
@@ -45,12 +45,16 @@
 #' 
 #' # Perform the WWZ decomposition
 #' decomp(leather, method = "wwz")
-#' 
+#'
+#' # Perform the Borin-Mancini decomposition
+#' decomp(leather, method = "bm")
+#' decomp(leather, method = "bm", aggregation = "bilateral")
+#'
 
 
 
 decomp <- function(iot, x, y, k, i, o = NULL, v = NULL,
-                   method = c("leontief", "kww", "wwz"), ...) {
+                   method = c("leontief", "kww", "wwz", "bm"), ...) {
 
   method <- match.arg(method)
 
@@ -61,9 +65,10 @@ decomp <- function(iot, x, y, k, i, o = NULL, v = NULL,
     decompr_obj <- load_tables_vectors(x = x, y = y, k = k, i = i, o = o, v = v)
   }
 
-  switch(method, 
+  switch(method,
          leontief = leontief(decompr_obj, ...),
          kww = kww(decompr_obj),
          wwz = wwz(decompr_obj, ...),
-         stop('Not a valid method'))         
+         bm = bm(decompr_obj, ...),
+         stop('Not a valid method'))
 }

@@ -50,7 +50,7 @@ Hummels, D., Ishii, J., & Yi, K. M. (2001). The nature and growth of vertical sp
 Wang, Zhi, Shang-Jin Wei, and Kunfu Zhu (2013). Quantifying international production sharing at the bilateral and sector levels (No. w19677). \emph{National Bureau of Economic Research}.
 }
 \seealso{
-\code{\link{kww}}, \code{\link{wwz}}, \code{\link{decompr-package}}
+\code{\link{bm}}, \code{\link{kww}}, \code{\link{wwz}}, \code{\link{decompr-package}}
 }
 \author{
 Bastiaan Quast
