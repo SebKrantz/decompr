@@ -11,3 +11,6 @@ kww_experimental.R
 ^\.positai$
 ^\.claude$
 ^misc$
+^.*\.dll$
+.DS_Store
+^\.DS_Store$
