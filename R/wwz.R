@@ -39,7 +39,7 @@
 #'  }
 #' @references Wang, Zhi, Shang-Jin Wei, and Kunfu Zhu (2013). Quantifying international production sharing at the bilateral and sector levels (No. w19677). \emph{National Bureau of Economic Research}.
 #' @export
-#' @seealso \code{\link{kww}}, \code{\link{wwz2kww}}, \code{\link{decompr-package}}
+#' @seealso \code{\link{bm}}, \code{\link{kww}}, \code{\link{wwz2kww}}, \code{\link{decompr-package}}
 #' @examples
 #' # Load example data
 #' data(leather)

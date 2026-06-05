@@ -5,6 +5,9 @@ decompr 6.9.0
   GVC terms at the country, sector, or bilateral-sector level, under the exporter/source or
   world/sink perspective. It is the R counterpart of `decompose()` in the Julia package
   `ICIO.jl` and reproduces the Stata `icio` command's output.
+* The `kww()` documentation now notes that the KWW decomposition is biased (it systematically
+  underestimates foreign value added) and points to `bm(perspective = "world", approach = "sink")`
+  for the Borin-Mancini correction. Cross-references to `bm()` were added throughout.
 
 
 decompr 6.4.0

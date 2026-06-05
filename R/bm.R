@@ -58,7 +58,7 @@
 #' Belotti, F., Borin, A. and Mancini, M. (2021). icio: Economic analysis with intercountry
 #' input-output tables. \emph{The Stata Journal, 21}(3), 708-755.
 #' @export
-#' @seealso \code{\link{kww}}, \code{\link{wwz}}, \code{\link{decompr-package}}
+#' @seealso \code{\link{kww}}, \code{\link{wwz}}, \code{\link{leontief}}, \code{\link{decompr-package}}
 #' @examples
 #' # Load example data and create a 'decompr' object
 #' data(leather)
