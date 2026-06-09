@@ -1,5 +1,5 @@
 #' @name decompr-package
-#' @docType _PACKAGE
+#' @docType package
 #' @title Global Value Chain Decomposition
 #' @author
 #' Bastiaan Quast \email{bquast@@gmail.com}\cr
