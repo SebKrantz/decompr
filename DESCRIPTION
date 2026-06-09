@@ -34,7 +34,7 @@ Maintainer: Bastiaan Quast <bquast@gmail.com>
 Depends: R (>= 3.5.0)
 Imports: matrixStats
 License: GPL-3
-URL: https://qua.st/decompr/, https://github.com/bquast/decompr
+URL: https://github.com/bquast/decompr
 BugReports: https://github.com/bquast/decompr/issues
 Suggests:
     gvc,
