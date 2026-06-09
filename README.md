@@ -78,7 +78,7 @@ An overview of the changes is available in the NEWS file.
 news(package='decompr')
 ```
 
-There is a dedicated website with information hosted on my [personal website](https://qua.st/).
+There is a dedicated website with information hosted on my [personal website](https://bastiaanquast.com/).
 
 https://qua.st/decompr/
 
