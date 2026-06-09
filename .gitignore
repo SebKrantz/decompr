@@ -7,3 +7,6 @@ kww_experimental.R
 *.o
 *.so
 *.dll
+.positai
+
+.DS_Store

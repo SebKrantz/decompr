@@ -12,7 +12,7 @@ decomp(
   i,
   o = NULL,
   v = NULL,
-  method = c("leontief", "kww", "wwz"),
+  method = c("leontief", "kww", "wwz", "bm"),
   ...
 )
 }
@@ -36,12 +36,12 @@ countries the same as in x.}
 
 \item{v}{numeric. A vector of value added for each country-industry matching the columns of x. If not provided it will be computed as \code{o - colSums(x)}.}
 
-\item{method}{character. The decomposition method, either \code{"leontief"}, \code{"kww"} or \code{"wwz"}.}
+\item{method}{character. The decomposition method, either \code{"leontief"}, \code{"kww"}, \code{"wwz"} or \code{"bm"}.}
 
-\item{\dots}{further arguments passed to \code{\link{leontief}}, \code{\link{kww}} or \code{\link{wwz}}.}
+\item{\dots}{further arguments passed to \code{\link{leontief}}, \code{\link{kww}}, \code{\link{wwz}} or \code{\link{bm}}.}
 }
 \value{
-Depends on the decomposition, see \code{\link{leontief}}, \code{\link{kww}} or \code{\link{wwz}}.
+Depends on the decomposition, see \code{\link{leontief}}, \code{\link{kww}}, \code{\link{wwz}} or \code{\link{bm}}.
  % The output when using the WWZ algorithm is a matrix with dimensions GNG*19.
  % Whereby 19 is the 16 objects the WWZ algorithm decomposes exports into, plus three checksums.
  % GNG represents source country, using industry and using country.
@@ -70,6 +70,10 @@ decomp(leather, method = "kww")
 
 # Perform the WWZ decomposition
 decomp(leather, method = "wwz")
+
+# Perform the Borin-Mancini decomposition
+decomp(leather, method = "bm")
+decomp(leather, method = "bm", aggregation = "bilateral")
 
 }
 \references{

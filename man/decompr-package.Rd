@@ -2,13 +2,16 @@
 % Please edit documentation in R/decompr.R
 \docType{package}
 \name{decompr-package}
+\alias{decompr}
 \alias{decompr-package}
 \title{Global Value Chain Decomposition}
 \description{
-Three global value chain (GVC) decompositions are implemented. The Leontief decomposition 
-derives the value added origin of exports by country and industry as in Hummels, Ishii and Yi (2001). 
-The Koopman, Wang and Wei (2014) decomposition splits country-level exports into 9 value added components, 
-and the Wang, Wei and Zhu (2013) decomposition splits bilateral exports into 16 value added components. 
+Four global value chain (GVC) decompositions are implemented. The Leontief decomposition
+derives the value added origin of exports by country and industry as in Hummels, Ishii and Yi (2001).
+The Koopman, Wang and Wei (2014) decomposition splits country-level exports into 9 value added components,
+and the Wang, Wei and Zhu (2013) decomposition splits bilateral exports into 16 value added components.
+The Borin and Mancini (2019) decomposition splits country-, sector- or bilateral-level exports into up to
+13 value added and GVC components, and also provides a corrected version of the (biased) KWW decomposition.
 Various GVC indicators based on these decompositions are computed in the complimentary 'gvc' package.
 }
 \section{Contents}{
@@ -25,7 +28,8 @@ Functions to perform GVC decompositions on a 'decompr' object
 
 \code{\link[=leontief]{leontief()}}\cr
 \code{\link[=kww]{kww()}}\cr
-\code{\link[=wwz]{wwz()}}
+\code{\link[=wwz]{wwz()}}\cr
+\code{\link[=bm]{bm()}}
 
 Function to obtain KWW decomposition from WWZ decomposition
 
@@ -42,6 +46,8 @@ Hummels, D., Ishii, J., & Yi, K. M. (2001). The nature and growth of vertical sp
 Koopman, R., Wang, Z., & Wei, S. J. (2014). Tracing value-added and double counting in gross exports. \emph{American Economic Review, 104}(2), 459-94.
 
 Wang, Zhi, Shang-Jin Wei, and Kunfu Zhu (2013). Quantifying international production sharing at the bilateral and sector levels (No. w19677). \emph{National Bureau of Economic Research}.
+
+Borin, A., & Mancini, M. (2019). Measuring What Matters in Global Value Chains and Value-Added Trade. \emph{World Bank Policy Research Working Paper 8804}.
 }
 \seealso{
 https://qua.st/decompr/

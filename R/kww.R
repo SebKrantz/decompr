@@ -18,8 +18,20 @@
 #'  FDC \tab\tab\tab Double counted FVA in intermediate exports (arising from 2-way trade in intermediate goods). \cr % (VA already captured in FVA_INT). -> Not strictly correct.
 #'  }
 #' @references Koopman, R., Wang, Z., & Wei, S. J. (2014). Tracing value-added and double counting in gross exports. \emph{American Economic Review, 104}(2), 459-94.
+#'
+#' Borin, A., & Mancini, M. (2019). Measuring What Matters in Global Value Chains and Value-Added Trade. \emph{World Bank Policy Research Working Paper 8804}.
+#' @note The KWW decomposition is known to be biased. As shown by Borin and Mancini (2019), it
+#' systematically underestimates the foreign value added in exports -- and correspondingly overstates
+#' foreign double counting -- because the entire foreign content that the direct importer re-exports to
+#' third countries is classified as 'foreign double counted', including the part (value added generated in
+#' the importing country and re-exported onwards) that is never recorded as foreign value added in any other
+#' flow. KWW also overlooks the bilateral dimension of trade, so it cannot correctly split domestic value
+#' added between absorption by the direct importer and by third markets (hence indicators such as DAVAX
+#' cannot be derived from it). Borin and Mancini (2019) correct these issues using a sink-based, world-level
+#' perspective for the foreign content of exports; this corrected KWW decomposition is available as
+#' \code{\link{bm}(x, perspective = "world", approach = "sink")}.
 #' @export
-#' @seealso \code{\link{wwz}}, \code{\link{wwz2kww}}, \code{\link{decompr-package}}
+#' @seealso \code{\link{bm}}, \code{\link{wwz}}, \code{\link{wwz2kww}}, \code{\link{decompr-package}}
 #' @examples
 #' # Load example data
 #' data(leather)

@@ -27,6 +27,18 @@ A data frame where a countries gross exports is decomposed into 9 components (co
 \description{
 This function performs the Koopman-Wang-Wei (2014) decomposition of a countries gross exports into 9 separate value added components.
 }
+\note{
+The KWW decomposition is known to be biased. As shown by Borin and Mancini (2019), it
+systematically underestimates the foreign value added in exports -- and correspondingly overstates
+foreign double counting -- because the entire foreign content that the direct importer re-exports to
+third countries is classified as 'foreign double counted', including the part (value added generated in
+the importing country and re-exported onwards) that is never recorded as foreign value added in any other
+flow. KWW also overlooks the bilateral dimension of trade, so it cannot correctly split domestic value
+added between absorption by the direct importer and by third markets (hence indicators such as DAVAX
+cannot be derived from it). Borin and Mancini (2019) correct these issues using a sink-based, world-level
+perspective for the foreign content of exports; this corrected KWW decomposition is available as
+\code{\link{bm}(x, perspective = "world", approach = "sink")}.
+}
 \examples{
 # Load example data
 data(leather)
@@ -40,9 +52,11 @@ kww(decompr_object)
 }
 \references{
 Koopman, R., Wang, Z., & Wei, S. J. (2014). Tracing value-added and double counting in gross exports. \emph{American Economic Review, 104}(2), 459-94.
+
+Borin, A., & Mancini, M. (2019). Measuring What Matters in Global Value Chains and Value-Added Trade. \emph{World Bank Policy Research Working Paper 8804}.
 }
 \seealso{
-\code{\link{wwz}}, \code{\link{wwz2kww}}, \code{\link{decompr-package}}
+\code{\link{bm}}, \code{\link{wwz}}, \code{\link{wwz2kww}}, \code{\link{decompr-package}}
 }
 \author{
 Sebastian Krantz
