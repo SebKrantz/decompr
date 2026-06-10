@@ -35,7 +35,7 @@
     <div class="section level2">
       <h2 id="data-input">Data Input<a class="anchor" aria-label="anchor" href="#data-input"></a></h2>
 
-      <div class="section-desc"><p>Parse raw ICIO table matrices into a <code>decompr</code> class object containing all derived matrices (Leontief inverse, domestic/import IO coefficients, value-added shares, export vectors) required by the decomposition functions.</p></div>
+      <div class="section-desc"><p>Parse raw ICIO table matrices into a <code>decompr</code> class object.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -58,7 +58,7 @@
       </dl></div><div class="section level2">
       <h2 id="leontief-decomposition">Leontief Decomposition<a class="anchor" aria-label="anchor" href="#leontief-decomposition"></a></h2>
 
-      <div class="section-desc"><p>Derive the value-added origin of exports by country and industry (Hummels, Ishii &amp; Yi 2001). Returns a matrix whose rows correspond to source country-sectors and whose columns correspond to destination country-sectors, optionally post-multiplied by output, final demand, or left as is.</p></div>
+      <div class="section-desc"><p>Derive the value-added origin of exports by country and industry (Hummels, Ishii &amp; Yi 2001).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -74,7 +74,7 @@
       </dl></div><div class="section level2">
       <h2 id="koopman-wang-wei-kww-decomposition">Koopman-Wang-Wei (KWW) Decomposition<a class="anchor" aria-label="anchor" href="#koopman-wang-wei-kww-decomposition"></a></h2>
 
-      <div class="section-desc"><p>Split country-level exports into 9 value-added and double-counting components (Koopman, Wang &amp; Wei 2014). Note: KWW contains a known systematic bias — see <code><a href="../reference/bm.html">bm()</a></code> for the Borin-Mancini correction. <code><a href="../reference/wwz2kww.html">wwz2kww()</a></code> maps the 16-term WWZ result to the 9-term KWW format when both decompositions are needed.</p></div>
+      <div class="section-desc"><p>Split country-level exports into 9 value-added components (Koopman, Wang &amp; Wei 2014).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -97,7 +97,7 @@
       </dl></div><div class="section level2">
       <h2 id="wang-wei-zhu-wwz-decomposition">Wang-Wei-Zhu (WWZ) Decomposition<a class="anchor" aria-label="anchor" href="#wang-wei-zhu-wwz-decomposition"></a></h2>
 
-      <div class="section-desc"><p>Split bilateral country-sector exports into 16 value-added and double-counting components by importing country (Wang, Wei &amp; Zhu 2013). Returns a long-format array with an additional diagnostic block (texp, texpint, texpfd, texpdiff) for accounting checks.</p></div>
+      <div class="section-desc"><p>Split bilateral exports into 16 value-added components by importing country (Wang, Wei &amp; Zhu 2013).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -113,7 +113,7 @@
       </dl></div><div class="section level2">
       <h2 id="borin-mancini-bm-decomposition">Borin-Mancini (BM) Decomposition<a class="anchor" aria-label="anchor" href="#borin-mancini-bm-decomposition"></a></h2>
 
-      <div class="section-desc"><p>Split gross exports into up to 13 value-added and GVC participation components (Borin &amp; Mancini 2019). Supports three aggregation levels (country, sector, bilateral) and two accounting perspectives (exporter/source or world/sink). The world/sink perspective implements the corrected KWW and is the recommended replacement for <code><a href="../reference/kww.html">kww()</a></code>.</p></div>
+      <div class="section-desc"><p>Split gross exports into up to 13 value-added and GVC participation components (Borin &amp; Mancini 2019).</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -129,7 +129,7 @@
       </dl></div><div class="section level2">
       <h2 id="convenience-interface">Convenience Interface<a class="anchor" aria-label="anchor" href="#convenience-interface"></a></h2>
 
-      <div class="section-desc"><p>High-level wrapper for running any decomposition with a single call. See also the package-level help page for an overview of all methods.</p></div>
+      <div class="section-desc"><p>High-level wrapper for running any decomposition with a single call.</p></div>
 
       <dl></dl></div><div class="section level2">
 
