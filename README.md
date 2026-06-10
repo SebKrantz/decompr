@@ -1,102 +1,77 @@
-decompr
-=======
+# decompr
+
 [![License](http://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![CRAN Version](http://www.r-pkg.org/badges/version/decompr)](https://cran.r-project.org/package=decompr)
-[![R build status](https://github.com/bquast/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/bquast/decompr/actions?workflow=R-CMD-check)
-[![Coverage status](https://codecov.io/gh/bquast/decompr/branch/master/graph/badge.svg?token=eKinPv6wxA)](https://app.codecov.io/gh/bquast/decompr)
-[![Total RStudio Cloud Downloads](http://cranlogs.r-pkg.org/badges/grand-total/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
-[![Monthly RStudio Cloud Downloads](http://cranlogs.r-pkg.org/badges/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
+[![R build status](https://github.com/SebKrantz/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/SebKrantz/decompr/actions?workflow=R-CMD-check)
+[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
+[![Monthly Downloads](http://cranlogs.r-pkg.org/badges/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
 
+**decompr** implements four global value chain (GVC) decompositions of gross exports into value-added and double-counting components:
 
-Demonstration
----------------
-![decompr GUI demonstration](https://github.com/bquast/R-demo-GIFs/blob/master/decompr.gif)
+| Function | Method | Level | Terms |
+|----------|--------|-------|-------|
+| `leontief()` | Hummels, Ishii & Yi (2001) | country × industry | continuous VA origin |
+| `kww()` | Koopman, Wang & Wei (2014) | country | 9 |
+| `wwz()` | Wang, Wei & Zhu (2013) | bilateral country × sector | 16 |
+| `bm()` | Borin & Mancini (2019) | country / sector / bilateral | up to 13 |
 
-Description
----------------
-Two Global Value Chains decompositions are implemented.
-Firstly, the Wang, Wei, and Zhu (2013) algorithm splits bilateral gross exports into 16 value added components.
-Secondly, the Leontief decomposition (default) derives the value added origin of exports by country and industry, see Leontief (1937).
+`bm()` is the recommended state-of-the-art decomposition. It also provides a corrected version of the KWW decomposition (use `perspective = "world", approach = "sink"`), which fixes a known systematic bias in `kww()`.
 
-Additional tools for GVC analysis are available in the [gvc package](https://cran.r-project.org/package=gvc).
+GVC indicators based on these decompositions are available in the companion [gvc](https://cran.r-project.org/package=gvc) package.
 
+## Installation
 
-Installation
-------------
-You can install the latest **stable** version from [CRAN](https://cran.r-project.org/package=decompr).
+Install the stable version from CRAN:
 
 ```r
-install.packages('decompr')
+install.packages("decompr")
 ```
 
-The **development** version, to be used **at your peril**, can be installed from [GitHub](https://github.com/bquast/decompr) using the `devtools` package.
+Install the development version from GitHub:
 
 ```r
-if (!require('remotes')) install.packages('remotes')
-remotes::install_github('bquast/decompr')
+# install.packages("remotes")
+remotes::install_github("SebKrantz/decompr")
 ```
 
-
-Usage
--------------
-
-Following installation, the package can be loaded using:
+## Usage
 
 ```r
 library(decompr)
+
+# Load the built-in 3×3 leather-sector ICIO table
+data(leather)
+
+# Build a decompr object from raw ICIO matrices
+x <- load_tables_vectors(
+  inter  = leather$inter,
+  final  = leather$final,
+  output = leather$output,
+  countries = leather$countries,
+  industries = leather$industries
+)
+
+# Leontief decomposition
+leontief(x)
+
+# Wang-Wei-Zhu (2013): 16 bilateral terms
+wwz(x)
+
+# Borin-Mancini (2019): up to 13 terms, exporter perspective
+bm(x)
+
+# Borin-Mancini corrected KWW (world / sink perspective)
+bm(x, perspective = "world", approach = "sink")
+
+# Or use the unified interface
+decomp(x, method = "bm")
 ```
 
-For general information on using the package, please refer to the help files.
+See `vignette("decompr")` for a detailed walk-through.
 
-```r
-help('decompr')
-help(package='decompr')
-```
+## References
 
-For examples of usage, see the function specific help pages, in particular the `decomp()` function.
-
-```r
-help('decomp')
-help('leontief')
-help('wwz')
-help('load_tables_vectors')
-```
-
-In addition to the help files we provide a long form example in a vignette:
-
-```r
-vignette('decompr')
-```
-
-
-Additional Information
------------------------
-
-An overview of the changes is available in the NEWS file.
-
-```r
-news(package='decompr')
-```
-
-There is a dedicated website with information hosted on my [personal website](https://bastiaanquast.com/).
-
-https://qua.st/decompr/
-
-
-Development
--------------
-Development takes place on the GitHub page.
-
-https://github.com/bquast/decompr
-
-Bugs can be filed on the issues page on GitHub.
-
-https://github.com/bquast/decompr/issues
-
-
-Credit
----------
-
-The Wang-Wei-Zhu algorithm (`wwz()`)is based on R code written by Fei Wang
-(not to be confused with the author of the algorithm, with the same last name),
-which implemented this algorithm.
+- Borin, A., & Mancini, M. (2019). *Measuring What Matters in Global Value Chains and Value-Added Trade*. World Bank Policy Research Working Paper 8804.
+- Koopman, R., Wang, Z., & Wei, S.-J. (2014). Tracing value-added and double counting in gross exports. *American Economic Review*, 104(2), 459–494.
+- Wang, Z., Wei, S.-J., & Zhu, K. (2013). *Quantifying International Production Sharing at the Bilateral and Sector Levels*. NBER Working Paper 19677.
+- Hummels, D., Ishii, J., & Yi, K.-M. (2001). The nature and growth of vertical specialization in world trade. *Journal of International Economics*, 54(1), 75–96.
