@@ -42,58 +42,34 @@ navbar:
 
 reference:
 - title: "Data Input"
-  desc: >
-    Parse raw ICIO table matrices into a `decompr` class object containing
-    all derived matrices (Leontief inverse, domestic/import IO coefficients,
-    value-added shares, export vectors) required by the decomposition functions.
+  desc: "Parse raw ICIO table matrices into a `decompr` class object."
 - contents:
   - load_tables_vectors
   - load_tables
 
 - title: "Leontief Decomposition"
-  desc: >
-    Derive the value-added origin of exports by country and industry
-    (Hummels, Ishii & Yi 2001). Returns a matrix whose rows correspond to
-    source country-sectors and whose columns correspond to destination
-    country-sectors, optionally post-multiplied by output, final demand,
-    or left as is.
+  desc: "Derive the value-added origin of exports by country and industry (Hummels, Ishii & Yi 2001)."
 - contents:
   - leontief
 
 - title: "Koopman-Wang-Wei (KWW) Decomposition"
-  desc: >
-    Split country-level exports into 9 value-added and double-counting
-    components (Koopman, Wang & Wei 2014). Note: KWW contains a known
-    systematic bias — see `bm()` for the Borin-Mancini correction.
-    `wwz2kww()` maps the 16-term WWZ result to the 9-term KWW format
-    when both decompositions are needed.
+  desc: "Split country-level exports into 9 value-added components (Koopman, Wang & Wei 2014)."
 - contents:
   - kww
   - wwz2kww
 
 - title: "Wang-Wei-Zhu (WWZ) Decomposition"
-  desc: >
-    Split bilateral country-sector exports into 16 value-added and
-    double-counting components by importing country (Wang, Wei & Zhu 2013).
-    Returns a long-format array with an additional diagnostic block
-    (texp, texpint, texpfd, texpdiff) for accounting checks.
+  desc: "Split bilateral exports into 16 value-added components by importing country (Wang, Wei & Zhu 2013)."
 - contents:
   - wwz
 
 - title: "Borin-Mancini (BM) Decomposition"
-  desc: >
-    Split gross exports into up to 13 value-added and GVC participation
-    components (Borin & Mancini 2019). Supports three aggregation levels
-    (country, sector, bilateral) and two accounting perspectives
-    (exporter/source or world/sink). The world/sink perspective implements
-    the corrected KWW and is the recommended replacement for `kww()`.
+  desc: "Split gross exports into up to 13 value-added and GVC participation components (Borin & Mancini 2019)."
 - contents:
   - bm
 
 - title: "Convenience Interface"
-  desc: >
-    High-level wrapper for running any decomposition with a single call.
-    See also the package-level help page for an overview of all methods.
+  desc: "High-level wrapper for running any decomposition with a single call."
 - contents:
   - decomp
   - decompr-package
