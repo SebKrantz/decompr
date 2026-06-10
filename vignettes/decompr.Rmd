@@ -33,8 +33,8 @@ ultimately originate?*
 | `wwz()` | Wang, Wei & Zhu (2013) | bilateral country-industry | 16 |
 | `bm()` | Borin & Mancini (2019) | country / sector / bilateral | up to 13 |
 
-`bm()` is the recommended state-of-the-art decomposition. Its world/sink perspective also
-provides a corrected version of the biased KWW decomposition.
+`bm()` is the recommended decomposition. Its world/sink perspective also provides a
+corrected version of the biased KWW decomposition.
 
 ## The leather dataset
 
@@ -59,7 +59,7 @@ leather$output
 ```
 
 The rows and columns of `inter` and the rows of `final` are ordered by country first,
-then industry, yielding 9 country-industry combinations.
+then industry — 9 country-industry combinations in total.
 
 ## Building a `decompr` object
 
@@ -97,7 +97,7 @@ round(x$E, 2)
 ## Leontief decomposition
 
 `leontief()` pre-multiplies the Leontief inverse by the value-added coefficient matrix
-and post-multiplies by exports, yielding the value-added origin (rows) of each
+and post-multiplies by exports. The result gives the value-added origin (rows) of each
 exporting country-industry (columns).
 
 ```{r leontief}
@@ -111,8 +111,8 @@ amount of value added from the source embodied in the using sector's exports. Se
 
 ## Koopman-Wang-Wei (KWW) decomposition
 
-`kww()` aggregates to the country level and splits exports into 9 components covering
-domestic value added (DVA), foreign value added (FVA), and various double-counting terms.
+`kww()` aggregates to the country level and splits exports into 9 components: domestic
+value added (DVA), foreign value added (FVA), and various double-counting terms.
 
 ```{r kww}
 kww(x)
@@ -151,31 +151,27 @@ wwz2kww(wz)
 
 ### WWZ vs. BM (exporter/source): different perimeters
 
-Although both WWZ and BM decompose bilateral exports into value-added and double-counting
-components, they differ fundamentally in *what they define as double-counted*, and this
-shapes which empirical questions each can answer.
+WWZ and BM (exporter/source) both decompose bilateral exports into value-added and
+double-counting components, but they disagree on what "double-counted" means — and that
+choice shapes which questions each method can answer.
 
-**WWZ** defines double-counting at the *bilateral* level: an item is called double-counted
-only if it crosses the same bilateral border s→r more than once. This is a less
-restrictive notion — some items that would be double-counted from an exporting-country
-perspective are treated as value-added here. The bilateral perspective answers the question
-*"how much of any country's GDP is embedded in this specific trade flow?"*, which is
-useful for assessing the GDP-at-stake from a bilateral policy shock. However, because the
-perimeter shifts with every (s, r) pair, WWZ results are *not additive*: summing bilateral
-terms over all importers r does not recover a meaningful country-level decomposition. In
-addition, WWZ mixes source-based and sink-based approaches in the same decomposition —
-different terms reflect different accounting logics, making them not directly comparable
-and preventing the construction of consistent GVC participation indicators such as DAVAX.
+WWZ uses a *bilateral* perimeter: an item is double-counted only if it crosses the same
+s→r border more than once. Compared to BM, this is looser, so some items that BM
+classifies as double-counted appear as value-added in WWZ. This makes WWZ well-suited to
+questions about the GDP content of a specific trade flow — tariff incidence, bilateral
+trade balances — but the tradeoff is that WWZ results do not add up: summing bilateral
+terms over all importers does not recover a sensible country-level total. WWZ also
+conflates source-based and sink-based approaches within the same decomposition, so its
+terms are not on the same accounting footing and GVC indicators such as DAVAX cannot be
+computed from the output.
 
-**BM (exporter/source)** defines double-counting at the *exporting-country* level: an item
-is double-counted the second time it crosses country s's border, regardless of destination.
-This *country-level perspective* is internally consistent (one approach applied throughout)
-and fully additive — bilateral results sum to sector totals, sector totals sum to country
-totals. It directly yields DAVAX (domestic value added directly absorbed by the importer),
-GVC-related trade, and backward/forward GVC participation shares. For most country- or
-sector-level analysis BM (exporter/source) is the appropriate choice; WWZ is better suited
-when the focus is on the GDP content of a *specific bilateral flow* as such (e.g. tariff
-incidence analysis, bilateral trade balance decomposition).
+BM (exporter/source) uses the *exporting country* as the perimeter: an item is
+double-counted the second time it crosses country s's border, wherever it goes. One
+approach throughout, so all 13 terms are comparable. Bilateral results sum to sector
+totals, sector totals to country totals — and DAVAX, GVC-related trade, and
+backward/forward participation shares all come out of the same calculation. For most
+country- or sector-level work, BM (exporter/source) is the natural choice; reach for WWZ
+when the question is specifically about what crosses a particular bilateral border.
 
 ## Borin-Mancini (BM) decomposition
 
@@ -223,8 +219,8 @@ Comparing to `kww()` above, `FVA` increases and `DDC` decreases accordingly.
 
 ## Convenience interface
 
-`decomp()` provides a single entry point for all methods. It accepts either a
-`decompr` object or a raw `iot` list directly:
+`decomp()` is a single entry point for all methods. It accepts either a `decompr`
+object or a raw `iot` list:
 
 ```{r decomp}
 # Pass the raw iot list — load_tables_vectors() is called internally
