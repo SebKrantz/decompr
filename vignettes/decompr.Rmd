@@ -149,6 +149,34 @@ round(wz[, "DVA_FIN", "Germany"], 2)
 wwz2kww(wz)
 ```
 
+### WWZ vs. BM (exporter/source): different perimeters
+
+Although both WWZ and BM decompose bilateral exports into value-added and double-counting
+components, they differ fundamentally in *what they define as double-counted*, and this
+shapes which empirical questions each can answer.
+
+**WWZ** defines double-counting at the *bilateral* level: an item is called double-counted
+only if it crosses the same bilateral border s→r more than once. This is a less
+restrictive notion — some items that would be double-counted from an exporting-country
+perspective are treated as value-added here. The bilateral perspective answers the question
+*"how much of any country's GDP is embedded in this specific trade flow?"*, which is
+useful for assessing the GDP-at-stake from a bilateral policy shock. However, because the
+perimeter shifts with every (s, r) pair, WWZ results are *not additive*: summing bilateral
+terms over all importers r does not recover a meaningful country-level decomposition. In
+addition, WWZ mixes source-based and sink-based approaches in the same decomposition —
+different terms reflect different accounting logics, making them not directly comparable
+and preventing the construction of consistent GVC participation indicators such as DAVAX.
+
+**BM (exporter/source)** defines double-counting at the *exporting-country* level: an item
+is double-counted the second time it crosses country s's border, regardless of destination.
+This *country-level perspective* is internally consistent (one approach applied throughout)
+and fully additive — bilateral results sum to sector totals, sector totals sum to country
+totals. It directly yields DAVAX (domestic value added directly absorbed by the importer),
+GVC-related trade, and backward/forward GVC participation shares. For most country- or
+sector-level analysis BM (exporter/source) is the appropriate choice; WWZ is better suited
+when the focus is on the GDP content of a *specific bilateral flow* as such (e.g. tariff
+incidence analysis, bilateral trade balance decomposition).
+
 ## Borin-Mancini (BM) decomposition
 
 `bm()` is the most flexible decomposition. It supports three aggregation levels
