@@ -1,4 +1,4 @@
-url: https://sebkrantz.github.io/decompr/
+url: https://bquast.github.io/decompr/
 
 home:
   title: Global Value Chain Decomposition
@@ -38,7 +38,7 @@ navbar:
       href: news/index.html
     github:
       icon: fa-github
-      href: https://github.com/SebKrantz/decompr
+      href: https://github.com/bquast/decompr
       aria-label: GitHub
 
 reference:

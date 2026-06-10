@@ -2,7 +2,7 @@
 
 [![License](http://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![CRAN Version](http://www.r-pkg.org/badges/version/decompr)](https://cran.r-project.org/package=decompr)
-[![R build status](https://github.com/SebKrantz/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/SebKrantz/decompr/actions?workflow=R-CMD-check)
+[![R build status](https://github.com/bquast/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/bquast/decompr/actions?workflow=R-CMD-check)
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
 [![Monthly Downloads](http://cranlogs.r-pkg.org/badges/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
 
@@ -31,7 +31,7 @@ Install the development version from GitHub:
 
 ```r
 # install.packages("remotes")
-remotes::install_github("SebKrantz/decompr")
+remotes::install_github("bquast/decompr")
 ```
 
 ## Usage
