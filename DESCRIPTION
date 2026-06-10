@@ -27,8 +27,8 @@ Authors@R: c(
                 email = "bquast@gmail.com", comment=c(ORCID="0000-0002-2951-3577") ), 
          person("Fei", "Wang", role = "aut"), 
          person("Victor", "Stolzenburg", role = "aut"), 
-         person("Oliver", "Reiter", role = "ctb"),
-         person("Sebastian", "Krantz", role = "ctb")
+         person("Sebastian", "Krantz", role = "aut"),
+         person("Oliver", "Reiter", role = "ctb")
          )
 Maintainer: Bastiaan Quast <bquast@gmail.com>
 Depends: R (>= 3.5.0)
