@@ -141,8 +141,8 @@ importing country) pair and one column per term, preceded by three identifier co
 
 ```{r wwz-slice}
 # DVA_FIN for all exporters into Germany
-wz[wz$Importing_Country == "Germany",
-   c("Exporting_Country", "Exporting_Industry", "DVA_FIN")]
+subset(wz, Importing_Country == "Germany",
+       select = c(Exporting_Country, Exporting_Industry, DVA_FIN))
 ```
 
 `wwz2kww()` maps the 16-term result to the 9-term KWW format when both are needed:
