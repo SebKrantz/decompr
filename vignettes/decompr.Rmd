@@ -131,16 +131,18 @@ kww(x)
 ```{r wwz}
 wz <- wwz(x)
 dim(wz)
-dimnames(wz)
+names(wz)
 ```
 
-The result is a 3-dimensional array: exporting country-industry × term × importing
-country. The last four terms (`texp`, `texpint`, `texpfd`, `texpdiff`) are
-accounting diagnostics rather than decomposition components.
+The result is a long-format data frame with one row per (exporting country-industry,
+importing country) pair and one column per term, preceded by three identifier columns
+(`Exporting_Country`, `Exporting_Industry`, `Importing_Country`). Columns beyond the
+16 decomposition terms are accounting diagnostics (`texp`, `texpint`, `texpfd`, etc.).
 
 ```{r wwz-slice}
-# DVA absorbed by final demand in Germany (importer index 3)
-round(wz[, "DVA_FIN", "Germany"], 2)
+# DVA_FIN for all exporters into Germany
+wz[wz$Importing_Country == "Germany",
+   c("Exporting_Country", "Exporting_Industry", "DVA_FIN")]
 ```
 
 `wwz2kww()` maps the 16-term result to the 9-term KWW format when both are needed:

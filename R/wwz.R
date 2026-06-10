@@ -6,9 +6,10 @@
 #' @param verbose logical, should timings of the calculation be displayed? Default is FALSE
 #' @author Bastiaan Quast
 #' @details Adapted from code by Fei Wang.
-#’ @return A 3-dimensional array (exporting country-industry x term x importing country)
-#’  with exports decomposed into 16 value-added components, as detailed in Table E1 in
-#’  the appendix of Wang, Wei & Zhu (2013), plus diagnostic items:
+#’ @return A long-format data frame with one row per (exporting country-industry, importing
+#’  country) pair and columns \code{Exporting_Country}, \code{Exporting_Industry},
+#’  \code{Importing_Country} followed by the 16 decomposition terms (as detailed in Table E1
+#’  in the appendix of Wang, Wei & Zhu 2013) and diagnostic items:
 #’  \tabular{ll}{
 #’  \emph{Term} \tab \emph{Description} \cr
 #’  \code{DVA_FIN} \tab Domestic VA in final goods exports. \cr
