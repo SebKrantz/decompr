@@ -360,34 +360,6 @@ format when both are needed:</p>
 <span><span class="co">#&gt; 25 0.29897730 0.51188531 0.436904740 0.57733715  8.1831712 1.20835270 0.91079521</span></span>
 <span><span class="co">#&gt; 26 0.62558843 1.40927173 0.907106729 1.12192882 11.4760010 1.64094572 1.97790686</span></span>
 <span><span class="co">#&gt; 27 0.00000000 0.00000000 0.000000000 0.00000000  0.0000000 0.00000000 0.00000000</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="wwz-vs--bm-exportersource-different-perimeters">WWZ vs. BM (exporter/source): different perimeters<a class="anchor" aria-label="anchor" href="#wwz-vs--bm-exportersource-different-perimeters"></a>
-</h3>
-<p>WWZ and BM (exporter/source) both decompose bilateral exports into
-value-added and double-counting components, but they disagree on what
-“double-counted” means — and that choice shapes which questions each
-method can answer.</p>
-<p>WWZ uses a <em>bilateral</em> perimeter: an item is double-counted
-only if it crosses the same s→r border more than once. Compared to BM,
-this is looser, so some items that BM classifies as double-counted
-appear as value-added in WWZ. This makes WWZ well-suited to questions
-about the GDP content of a specific trade flow — tariff incidence,
-bilateral trade balances — but the tradeoff is that WWZ results do not
-add up: summing bilateral terms over all importers does not recover a
-sensible country-level total. WWZ also conflates source-based and
-sink-based approaches within the same decomposition, so its terms are
-not on the same accounting footing and GVC indicators such as DAVAX
-cannot be computed from the output.</p>
-<p>BM (exporter/source) uses the <em>exporting country</em> as the
-perimeter: an item is double-counted the second time it crosses country
-s’s border, wherever it goes. One approach throughout, so all 13 terms
-are comparable. Bilateral results sum to sector totals, sector totals to
-country totals — and DAVAX, GVC-related trade, and backward/forward
-participation shares all come out of the same calculation. For most
-country- or sector-level work, BM (exporter/source) is the natural
-choice; reach for WWZ when the question is specifically about what
-crosses a particular bilateral border.</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="borin-mancini-bm-decomposition">Borin-Mancini (BM) decomposition<a class="anchor" aria-label="anchor" href="#borin-mancini-bm-decomposition"></a>
@@ -528,6 +500,34 @@ level.</p>
 <span><span class="co">#&gt; 3 33.128506 3.180911</span></span></code></pre></div>
 <p>Comparing to <code><a href="../reference/kww.html">kww()</a></code> above, <code>FVA</code> increases and
 <code>DDC</code> decreases accordingly.</p>
+</div>
+<div class="section level3">
+<h3 id="wwz-vs--bm-exportersource-different-perimeters">WWZ vs. BM (exporter/source): different perimeters<a class="anchor" aria-label="anchor" href="#wwz-vs--bm-exportersource-different-perimeters"></a>
+</h3>
+<p>WWZ and BM (exporter/source) both decompose bilateral exports into
+value-added and double-counting components, but they disagree on what
+“double-counted” means — and that choice shapes which questions each
+method can answer.</p>
+<p>WWZ uses a <em>bilateral</em> perimeter: an item is double-counted
+only if it crosses the same s→r border more than once. Compared to BM,
+this is looser, so some items that BM classifies as double-counted
+appear as value-added in WWZ. This makes WWZ well-suited to questions
+about the GDP content of a specific trade flow — tariff incidence,
+bilateral trade balances — but the tradeoff is that WWZ results do not
+add up: summing bilateral terms over all importers does not recover a
+sensible country-level total. WWZ also conflates source-based and
+sink-based approaches within the same decomposition, so its terms are
+not on the same accounting footing and GVC indicators such as DAVAX
+cannot be computed from the output.</p>
+<p>BM (exporter/source) uses the <em>exporting country</em> as the
+perimeter: an item is double-counted the second time it crosses country
+s’s border, wherever it goes. One approach throughout, so all 13 terms
+are comparable. Bilateral results sum to sector totals, sector totals to
+country totals — and DAVAX, GVC-related trade, and backward/forward
+participation shares all come out of the same calculation. For most
+country- or sector-level work, BM (exporter/source) is the natural
+choice; reach for WWZ when the question is specifically about what
+crosses a particular bilateral border.</p>
 </div>
 </div>
 <div class="section level2">

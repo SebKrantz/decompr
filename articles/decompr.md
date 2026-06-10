@@ -292,35 +292,6 @@ wwz2kww(wz)
 #> 27 0.00000000 0.00000000 0.000000000 0.00000000  0.0000000 0.00000000 0.00000000
 ```
 
-### WWZ vs. BM (exporter/source): different perimeters
-
-WWZ and BM (exporter/source) both decompose bilateral exports into
-value-added and double-counting components, but they disagree on what
-“double-counted” means — and that choice shapes which questions each
-method can answer.
-
-WWZ uses a *bilateral* perimeter: an item is double-counted only if it
-crosses the same s→r border more than once. Compared to BM, this is
-looser, so some items that BM classifies as double-counted appear as
-value-added in WWZ. This makes WWZ well-suited to questions about the
-GDP content of a specific trade flow — tariff incidence, bilateral trade
-balances — but the tradeoff is that WWZ results do not add up: summing
-bilateral terms over all importers does not recover a sensible
-country-level total. WWZ also conflates source-based and sink-based
-approaches within the same decomposition, so its terms are not on the
-same accounting footing and GVC indicators such as DAVAX cannot be
-computed from the output.
-
-BM (exporter/source) uses the *exporting country* as the perimeter: an
-item is double-counted the second time it crosses country s’s border,
-wherever it goes. One approach throughout, so all 13 terms are
-comparable. Bilateral results sum to sector totals, sector totals to
-country totals — and DAVAX, GVC-related trade, and backward/forward
-participation shares all come out of the same calculation. For most
-country- or sector-level work, BM (exporter/source) is the natural
-choice; reach for WWZ when the question is specifically about what
-crosses a particular bilateral border.
-
 ## Borin-Mancini (BM) decomposition
 
 [`bm()`](https://bquast.github.io/decompr/reference/bm.md) is the most
@@ -465,6 +436,35 @@ bm(x, perspective = "world", approach = "sink")
 Comparing to
 [`kww()`](https://bquast.github.io/decompr/reference/kww.md) above,
 `FVA` increases and `DDC` decreases accordingly.
+
+### WWZ vs. BM (exporter/source): different perimeters
+
+WWZ and BM (exporter/source) both decompose bilateral exports into
+value-added and double-counting components, but they disagree on what
+“double-counted” means — and that choice shapes which questions each
+method can answer.
+
+WWZ uses a *bilateral* perimeter: an item is double-counted only if it
+crosses the same s→r border more than once. Compared to BM, this is
+looser, so some items that BM classifies as double-counted appear as
+value-added in WWZ. This makes WWZ well-suited to questions about the
+GDP content of a specific trade flow — tariff incidence, bilateral trade
+balances — but the tradeoff is that WWZ results do not add up: summing
+bilateral terms over all importers does not recover a sensible
+country-level total. WWZ also conflates source-based and sink-based
+approaches within the same decomposition, so its terms are not on the
+same accounting footing and GVC indicators such as DAVAX cannot be
+computed from the output.
+
+BM (exporter/source) uses the *exporting country* as the perimeter: an
+item is double-counted the second time it crosses country s’s border,
+wherever it goes. One approach throughout, so all 13 terms are
+comparable. Bilateral results sum to sector totals, sector totals to
+country totals — and DAVAX, GVC-related trade, and backward/forward
+participation shares all come out of the same calculation. For most
+country- or sector-level work, BM (exporter/source) is the natural
+choice; reach for WWZ when the question is specifically about what
+crosses a particular bilateral border.
 
 ## Convenience interface
 
