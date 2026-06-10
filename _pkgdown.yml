@@ -93,8 +93,10 @@ reference:
 - title: "Convenience Interface"
   desc: >
     High-level wrapper for running any decomposition with a single call.
+    See also the package-level help page for an overview of all methods.
 - contents:
   - decomp
+  - decompr-package
 
 - title: "Example Data"
   desc: "Built-in 3×3 ICIO table (leather sector) for testing and learning."
