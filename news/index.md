@@ -1,0 +1,168 @@
+# Changelog
+
+## decompr 6.9.0
+
+CRAN release: 2026-06-09
+
+- Added the Borin-Mancini (2019) decomposition via the new
+  [`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md) function
+  (also available through `decomp(method = "bm")`). It decomposes gross
+  exports into up to 13 value-added and GVC terms at the country,
+  sector, or bilateral-sector level, under the exporter/source or
+  world/sink perspective. It is the R counterpart of
+  [`decompose()`](https://rdrr.io/r/stats/decompose.html) in the Julia
+  package `ICIO.jl` and reproduces the Stata `icio` command’s output.
+- The [`kww()`](https://sebkrantz.github.io/decompr/reference/kww.md)
+  documentation now notes that the KWW decomposition is biased (it
+  systematically underestimates foreign value added) and points to
+  `bm(perspective = "world", approach = "sink")` for the Borin-Mancini
+  correction. Cross-references to
+  [`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md) were
+  added throughout.
+
+## decompr 6.4.0
+
+CRAN release: 2022-06-19
+
+- redo documentation
+- small general fixes
+- add ORCID
+
+## decompr 6.2.0
+
+CRAN release: 2022-01-10
+
+- documentation updates
+
+## decompr 6.0.0
+
+CRAN release: 2021-05-09
+
+- Added Koopman-Wang-Wei (KWW) decompositon and function to aggregate
+  WWZ to KWW decomposition
+- 2x performance improvement through C-code and matrixStats dependency
+- Improved code security through additional checks
+- Enhanced documentation providing more details about methods and
+  resulting objects
+
+## decompr 5.2.0
+
+- documentation redone
+
+## decompr 4.5.0
+
+CRAN release: 2016-08-17
+
+- code refactoring
+- added v
+
+## decompr 4.1.0
+
+CRAN release: 2015-06-16
+
+- fix post multiplication “final_demand” of leontief()
+
+## decompr 4.0.0
+
+CRAN release: 2015-06-02
+
+- add post-multiplication argument to leontief method
+- remove leontief_output(), functionality moved to leontief()
+- use ellipsis for decomp function
+
+## decompr 3.0.0
+
+CRAN release: 2015-04-01
+
+- remove vertical_specialisation and vertical_specialization, will be
+  included in gvc package
+- add some attributes to output t.b. used by gvc package
+- change the output format of leontief and leontief-output to long form
+  (tidy data)
+- add columns country and sectors names
+- add DViX_Fsr to wwz
+- add Vignette (decompr)
+- add tests
+- add Travis-CI support
+- add coveralls.io support
+
+## decompr 2.1.0
+
+CRAN release: 2015-02-03
+
+- add a leontief_output decomposition method
+- update the README.md file
+- add warning when no method is specified in decomp (default is Leontief
+  as of v.2)
+
+## decompr 2.0.0
+
+- make load_tables_vectors default
+- change notice to reflect new default
+- update examples and data to reflect lt
+- replace use of 2 dimensional arrays with matrices
+- more efficient construction of rownam and z1
+- replace use of length(k) with G
+- replace use of various inefficient uses of diag() (e.g. with Vhat)
+- improved spacing of code for legibility
+- make leontief default method
+
+## decompr 1.3.2
+
+CRAN release: 2014-12-10
+
+- add notice
+
+## decompr 1.3.1
+
+- fix citations etc.
+
+## decompr 1.3.0
+
+- add load_tables_vectors to input in simple form
+
+## decompr 1.2.1
+
+- update authors
+
+## decompr 1.2.0
+
+- update citation code
+- use ” in stead of ’ in examples and function arguments
+- use match.arg for method in decomp function
+
+## decompr 1.1.0
+
+- update references
+- include more descriptive description
+
+## decompr 1.0.2
+
+- update example data to regional tables for faster computations
+- put back examples for non-decomp functions
+
+## decompr 1.0.1
+
+- remove examples other than for **decomp** function, to pass CRAN test
+  in time
+- add cran-comments.md
+
+## decompr 1.0.0
+
+- functions names use underscores in stead of periods
+- method names use underscores in stead of periods
+- examples reflect the above changes
+- WIOD data set is now compressed using bzip2
+- included this news file
+
+## decompr 0.7.0
+
+- citation information is included
+
+## decompr 0.6.0
+
+- example data set in included
+
+## decompr 0.5.0
+
+- examples are included

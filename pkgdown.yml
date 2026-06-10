@@ -1,0 +1,9 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  decompr: decompr.html
+last_built: 2026-06-10T19:41Z
+urls:
+  reference: https://sebkrantz.github.io/decompr/reference
+  article: https://sebkrantz.github.io/decompr/articles
