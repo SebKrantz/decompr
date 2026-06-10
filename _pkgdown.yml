@@ -49,7 +49,6 @@ reference:
 - contents:
   - load_tables_vectors
   - load_tables
-  - tiva
 
 - title: "Leontief Decomposition"
   desc: >
@@ -93,11 +92,9 @@ reference:
 
 - title: "Convenience Interface"
   desc: >
-    High-level wrappers for running any decomposition with a single call,
-    and an interactive Shiny gadget for exploratory analysis.
+    High-level wrapper for running any decomposition with a single call.
 - contents:
   - decomp
-  - decomp_gadget
 
 - title: "Example Data"
   desc: "Built-in 3×3 ICIO table (leather sector) for testing and learning."
