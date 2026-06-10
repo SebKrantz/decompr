@@ -7,6 +7,7 @@ template:
   bootstrap: 5
   bootswatch: sandstone
   theme: arrow-light
+  math-rendering: katex
   bslib:
     primary: "#1a3a4a"
     code-color: "#005f87"
