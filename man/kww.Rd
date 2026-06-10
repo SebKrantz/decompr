@@ -10,18 +10,18 @@ kww(x)
 \item{x}{an object of the class 'decompr' obtained from \code{\link{load_tables_vectors}}.}
 }
 \value{
-A data frame where a countries gross exports is decomposed into 9 components (columns), as detailed in Figure 1 of the AER paper:
- \tabular{llll}{
- \emph{Term} \tab\tab\tab \emph{Description} \cr\cr\cr
- DVA_FIN \tab\tab\tab Domestic VA in final goods exports. \cr\cr\cr
- DVA_INT \tab\tab\tab Domestic VA in intermediate exports absorbed by direct importers (used to produce a locally consumed final good). \cr\cr\cr
- DVA_INTrex \tab\tab\tab Domestic VA in intermediate exports reexported to third countries and absorbed there. \cr\cr\cr
- RDV_FIN \tab\tab\tab Domestic VA in intermediate exports that returns home via final imports. \cr\cr\cr
- RDV_INT \tab\tab\tab Domestic VA in intermediate exports that returns home via intermediate imports (used to produce a domestically consumed final good). \cr\cr\cr
- DDC \tab\tab\tab Double counted DVA in intermediate exports (arising from 2-way trade in intermediate goods). \cr\cr\cr % (VA already captured in RDV_FIN and RDV_INT). -> Not strictly correct.
- FVA_FIN \tab\tab\tab Foreign VA in final goods exports.  \cr\cr\cr
- FVA_INT \tab\tab\tab Foreign VA in intermediate exports. \cr\cr\cr
- FDC \tab\tab\tab Double counted FVA in intermediate exports (arising from 2-way trade in intermediate goods). \cr % (VA already captured in FVA_INT). -> Not strictly correct.
+A data frame where a country's gross exports is decomposed into 9 components (columns), as detailed in Figure 1 of the AER paper:
+ \tabular{ll}{
+ \emph{Term} \tab \emph{Description} \cr
+ \code{DVA_FIN} \tab Domestic VA in final goods exports. \cr
+ \code{DVA_INT} \tab Domestic VA in intermediate exports absorbed by direct importers (used to produce a locally consumed final good). \cr
+ \code{DVA_INTrex} \tab Domestic VA in intermediate exports reexported to third countries and absorbed there. \cr
+ \code{RDV_FIN} \tab Domestic VA in intermediate exports that returns home via final imports. \cr
+ \code{RDV_INT} \tab Domestic VA in intermediate exports that returns home via intermediate imports (used to produce a domestically consumed final good). \cr
+ \code{DDC} \tab Double counted DVA in intermediate exports (arising from 2-way trade in intermediate goods). \cr
+ \code{FVA_FIN} \tab Foreign VA in final goods exports. \cr
+ \code{FVA_INT} \tab Foreign VA in intermediate exports. \cr
+ \code{FDC} \tab Double counted FVA in intermediate exports (arising from 2-way trade in intermediate goods). \cr
  }
 }
 \description{

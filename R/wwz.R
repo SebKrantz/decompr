@@ -6,37 +6,39 @@
 #' @param verbose logical, should timings of the calculation be displayed? Default is FALSE
 #' @author Bastiaan Quast
 #' @details Adapted from code by Fei Wang.
-#' @return A data frame with exports decomposed into 16 components (columns), as detailed in Table E1 in the appendix of the paper, and additional diagnostic items:
-#'  \tabular{llll}{
-#'  \emph{Term} \tab\tab\tab \emph{Description} \cr\cr\cr
-#'  DVA_FIN \tab\tab\tab Domestic VA in final goods exports. \cr\cr\cr
-#'  DVA_INT \tab\tab\tab Domestic VA in intermediate exports used by direct importer to produce domestic final goods consumed at home. \cr\cr\cr
-#'  DVA_INTrexI1 \tab\tab\tab Domestic VA in intermediate exports used by the direct importer to produce intermediate exports for production of final goods in third countries that are then imported and consumed by the direct importer. \cr\cr\cr
-#'  DVA_INTrexF \tab\tab\tab Domestic VA in intermediate exports used by the direct importer to produce final goods exports to third countries. \cr\cr\cr
-#'  DVA_INTrexI2 \tab\tab\tab Domestic VA in Intermediate exports used by the direct importer to produce intermediate exports to third countries. \cr\cr\cr
-#'  RDV_INT \tab\tab\tab Domestic VA in intermediate exports that returns via intermediate imports (i.e. is used to produce a locally consumed final good). \cr\cr\cr
-#'  RDV_FIN \tab\tab\tab Domestic VA in intermediate exports that returns home via final goods imports from the direct importer. \cr\cr\cr
-#'  RDV_FIN2 \tab\tab\tab Domestic VA in intermediate exports that returns home via in final goods imports from third countries. \cr\cr\cr
-#'  OVA_FIN \tab\tab\tab Third countries’ VA in final goods exports. \cr\cr\cr
-#'  MVA_FIN \tab\tab\tab Direct importer’s VA in final goods exports. \cr\cr\cr
-#'  OVA_INT \tab\tab\tab Third countries’ VA in intermediate exports. \cr\cr\cr
-#'  MVA_INT \tab\tab\tab Direct importer’s VA in intermediate exports. \cr\cr\cr
-#'  DDC_FIN \tab\tab\tab Double counted Domestic VA used to produce final goods exports. \cr\cr\cr
-#'  DDC_INT \tab\tab\tab Double counted Domestic VA used to produce intermediate exports. \cr\cr\cr
-#'  ODC \tab\tab\tab Double counted third countries’ VA in home country’s exports production. \cr\cr\cr
-#'  MDC \tab\tab\tab Double counted direct importer’s VA in home country’s exports production. \cr\cr\cr\cr\cr\cr\cr
-#'  \emph{Diagnostic Item} \tab\tab\tab \emph{Description} \cr\cr\cr
-#'  texp \tab\tab\tab Total Exports (matrix 'ESR' from \code{\link{load_tables_vectors}}). \cr\cr\cr
-#'  texpint \tab\tab\tab Exports for intermediate production (matrix 'Eint' from \code{\link{load_tables_vectors}}). \cr\cr\cr
-#'  texpfd \tab\tab\tab Exports for final demand (matrix 'Efd' from \code{\link{load_tables_vectors}}). \cr\cr\cr
-#'  texpdiff \tab\tab\tab Difference between Total Exports and the sum of the 16 terms. \cr\cr\cr
-#'  texpdiffpercent \tab\tab\tab ... in percent of total exports. \cr\cr\cr
-#'  texpfddiff \tab\tab\tab Difference between Final Exports and the sum of terms DVA_FIN, OVA_FIN and MVA_FIN. \cr\cr\cr
-#'  texpfddiffpercent \tab\tab\tab ... in percent of final exports. \cr\cr\cr
-#'  texpintdiff \tab\tab\tab Difference between Intermediate Exports and the sum of all the remaining terms (except DVA_FIN, OVA_FIN and MVA_FIN). \cr\cr\cr
-#'  texpintdiffpercent \tab\tab\tab ... in percent of intermediate exports. \cr\cr\cr
-#'  DViX_Fsr \tab\tab\tab DVA embodied in gross exports based on forward linkage. \cr
-#'  }
+#’ @return A 3-dimensional array (exporting country-industry x term x importing country)
+#’  with exports decomposed into 16 value-added components, as detailed in Table E1 in
+#’  the appendix of Wang, Wei & Zhu (2013), plus diagnostic items:
+#’  \tabular{ll}{
+#’  \emph{Term} \tab \emph{Description} \cr
+#’  \code{DVA_FIN} \tab Domestic VA in final goods exports. \cr
+#’  \code{DVA_INT} \tab Domestic VA in intermediate exports used by direct importer to produce domestic final goods consumed at home. \cr
+#’  \code{DVA_INTrexI1} \tab Domestic VA in intermediate exports used by the direct importer to produce intermediate exports for production of final goods in third countries that are then imported and consumed by the direct importer. \cr
+#’  \code{DVA_INTrexF} \tab Domestic VA in intermediate exports used by the direct importer to produce final goods exports to third countries. \cr
+#’  \code{DVA_INTrexI2} \tab Domestic VA in intermediate exports used by the direct importer to produce intermediate exports to third countries. \cr
+#’  \code{RDV_INT} \tab Domestic VA in intermediate exports that returns via intermediate imports (i.e. is used to produce a locally consumed final good). \cr
+#’  \code{RDV_FIN} \tab Domestic VA in intermediate exports that returns home via final goods imports from the direct importer. \cr
+#’  \code{RDV_FIN2} \tab Domestic VA in intermediate exports that returns home via final goods imports from third countries. \cr
+#’  \code{OVA_FIN} \tab Third countries’ VA in final goods exports. \cr
+#’  \code{MVA_FIN} \tab Direct importer’s VA in final goods exports. \cr
+#’  \code{OVA_INT} \tab Third countries’ VA in intermediate exports. \cr
+#’  \code{MVA_INT} \tab Direct importer’s VA in intermediate exports. \cr
+#’  \code{DDC_FIN} \tab Double counted domestic VA used to produce final goods exports. \cr
+#’  \code{DDC_INT} \tab Double counted domestic VA used to produce intermediate exports. \cr
+#’  \code{ODC} \tab Double counted third countries’ VA in home country’s exports production. \cr
+#’  \code{MDC} \tab Double counted direct importer’s VA in home country’s exports production. \cr
+#’  \emph{Diagnostic Item} \tab \emph{Description} \cr
+#’  \code{texp} \tab Total exports (matrix \code{ESR} from \code{\link{load_tables_vectors}}). \cr
+#’  \code{texpint} \tab Exports for intermediate production (matrix \code{Eint} from \code{\link{load_tables_vectors}}). \cr
+#’  \code{texpfd} \tab Exports for final demand (matrix \code{Efd} from \code{\link{load_tables_vectors}}). \cr
+#’  \code{texpdiff} \tab Difference between total exports and the sum of the 16 terms. \cr
+#’  \code{texpdiffpercent} \tab ... in percent of total exports. \cr
+#’  \code{texpfddiff} \tab Difference between final exports and the sum of DVA_FIN, OVA_FIN and MVA_FIN. \cr
+#’  \code{texpfddiffpercent} \tab ... in percent of final exports. \cr
+#’  \code{texpintdiff} \tab Difference between intermediate exports and the sum of all remaining terms. \cr
+#’  \code{texpintdiffpercent} \tab ... in percent of intermediate exports. \cr
+#’  \code{DViX_Fsr} \tab DVA embodied in gross exports based on forward linkage. \cr
+#’  }
 #' @references Wang, Zhi, Shang-Jin Wei, and Kunfu Zhu (2013). Quantifying international production sharing at the bilateral and sector levels (No. w19677). \emph{National Bureau of Economic Research}.
 #' @export
 #' @seealso \code{\link{bm}}, \code{\link{kww}}, \code{\link{wwz2kww}}, \code{\link{decompr-package}}

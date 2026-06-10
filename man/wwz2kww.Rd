@@ -22,20 +22,17 @@ from an already computed and more detailed (16 term) Wang-Wei-Zhu decomposition 
 The mapping of the 16 terms in the WWZ decomposition to the 9 terms in the KWW decomposition is provided in table E2 in the appendix of the WWZ (2013) paper. The table is reproduced here using the term naming 
 conventions followed in this package.
 
-\tabular{lllllll}{
- \emph{WWZ Terms} \tab\tab\tab \emph{KWW Term} \tab\tab\tab \emph{Description} \cr\cr\cr
- DVA_FIN \tab\tab\tab DVA_FIN \tab\tab\tab Domestic VA in final goods exports. \cr\cr\cr
- DVA_INT, DVA_INTrexI1 \tab\tab\tab DVA_INT \tab\tab\tab Domestic VA in intermediate exports absorbed by direct importers. 
- WWZ separates VA in final goods produced and consumed by direct importer from VA used by direct importer to produce intermediate exports for production of domestically consumed final goods 
- in third countries (i.e. the VA is absorbed by the direct importer, but it may be exported to third countries as intermediates first before returning to direct importer as final goods). \cr\cr\cr
- DVA_INTrexF, DVA_INTrexI2 \tab\tab\tab DVA_INTrex \tab\tab\tab Domestic VA in intermediate exports reexported to third countries and absorbed there. WWZ separates VA in final goods exports 
- of direct importer to third countries from VA in intermediate exports from direct importers to third countries (that is ultimately absorbed in third countries). \cr\cr\cr
- RDV_FIN, RDV_FIN2 \tab\tab\tab RDV_FIN \tab\tab\tab Domestic VA in intermediate exports that returns home via final imports. WWZ separates final imports from the direct importer and third countries. \cr\cr\cr
- RDV_INT \tab\tab\tab RDV_INT \tab\tab\tab Domestic VA in intermediate exports that returns via intermediate imports (i.e. is used to produce a locally consumed final good). \cr\cr\cr
- DDC_FIN, DDC_INT \tab\tab\tab DDC \tab\tab\tab Double counted Domestic Value Added in gross exports. WWZ separates double counting due to final and intermediate exports production. \cr\cr\cr
- MVA_FIN, OVA_FIN \tab\tab\tab FVA_FIN \tab\tab\tab Foreign VA in final goods exports. WWZ separates FVA from direct importer and from third countries.  \cr\cr\cr
- MVA_INT,  OVA_INT \tab\tab\tab FVA_INT \tab\tab\tab Foreign VA in intermediate exports. WWZ separates FVA from direct importer and from third countries. \cr\cr\cr
- MDC, ODC \tab\tab\tab FDC \tab\tab\tab Double counted Foreign Value Added in gross exports. WWZ separates FDC from direct importer and from third countries. \cr
+\tabular{lll}{
+ \emph{WWZ Terms} \tab \emph{KWW Term} \tab \emph{Description} \cr
+ \code{DVA_FIN} \tab \code{DVA_FIN} \tab Domestic VA in final goods exports. \cr
+ \code{DVA_INT, DVA_INTrexI1} \tab \code{DVA_INT} \tab Domestic VA in intermediate exports absorbed by direct importers. WWZ separates VA absorbed directly from VA that transits through third countries before returning to the direct importer. \cr
+ \code{DVA_INTrexF, DVA_INTrexI2} \tab \code{DVA_INTrex} \tab Domestic VA in intermediate exports reexported to third countries and absorbed there. WWZ separates VA in final goods exports of direct importer to third countries from VA in intermediate exports to third countries. \cr
+ \code{RDV_FIN, RDV_FIN2} \tab \code{RDV_FIN} \tab Domestic VA in intermediate exports that returns home via final imports. WWZ separates final imports from the direct importer and from third countries. \cr
+ \code{RDV_INT} \tab \code{RDV_INT} \tab Domestic VA in intermediate exports that returns via intermediate imports (used to produce a locally consumed final good). \cr
+ \code{DDC_FIN, DDC_INT} \tab \code{DDC} \tab Double counted domestic VA in gross exports. WWZ separates double counting due to final and intermediate exports production. \cr
+ \code{MVA_FIN, OVA_FIN} \tab \code{FVA_FIN} \tab Foreign VA in final goods exports. WWZ separates FVA from direct importer and from third countries. \cr
+ \code{MVA_INT, OVA_INT} \tab \code{FVA_INT} \tab Foreign VA in intermediate exports. WWZ separates FVA from direct importer and from third countries. \cr
+ \code{MDC, ODC} \tab \code{FDC} \tab Double counted foreign VA in gross exports. WWZ separates FDC from direct importer and from third countries. \cr
  }
 }
 \note{
