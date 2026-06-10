@@ -4,7 +4,7 @@
 [![CRAN
 Version](http://www.r-pkg.org/badges/version/decompr)](https://cran.r-project.org/package=decompr)
 [![R build
-status](https://github.com/SebKrantz/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/SebKrantz/decompr/actions?workflow=R-CMD-check)
+status](https://github.com/bquast/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/bquast/decompr/actions?workflow=R-CMD-check)
 [![Total
 Downloads](http://cranlogs.r-pkg.org/badges/grand-total/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
 [![Monthly
@@ -15,17 +15,17 @@ gross exports into value-added and double-counting components:
 
 | Function | Method | Level | Terms |
 |----|----|----|----|
-| [`leontief()`](https://sebkrantz.github.io/decompr/reference/leontief.md) | Hummels, Ishii & Yi (2001) | country × industry | continuous VA origin |
-| [`kww()`](https://sebkrantz.github.io/decompr/reference/kww.md) | Koopman, Wang & Wei (2014) | country | 9 |
-| [`wwz()`](https://sebkrantz.github.io/decompr/reference/wwz.md) | Wang, Wei & Zhu (2013) | bilateral country × sector | 16 |
-| [`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md) | Borin & Mancini (2019) | country / sector / bilateral | up to 13 |
+| [`leontief()`](https://bquast.github.io/decompr/reference/leontief.md) | Hummels, Ishii & Yi (2001) | country × industry | continuous VA origin |
+| [`kww()`](https://bquast.github.io/decompr/reference/kww.md) | Koopman, Wang & Wei (2014) | country | 9 |
+| [`wwz()`](https://bquast.github.io/decompr/reference/wwz.md) | Wang, Wei & Zhu (2013) | bilateral country × sector | 16 |
+| [`bm()`](https://bquast.github.io/decompr/reference/bm.md) | Borin & Mancini (2019) | country / sector / bilateral | up to 13 |
 
-[`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md) is the
+[`bm()`](https://bquast.github.io/decompr/reference/bm.md) is the
 recommended state-of-the-art decomposition. It also provides a corrected
 version of the KWW decomposition (use
 `perspective = "world", approach = "sink"`), which fixes a known
 systematic bias in
-[`kww()`](https://sebkrantz.github.io/decompr/reference/kww.md).
+[`kww()`](https://bquast.github.io/decompr/reference/kww.md).
 
 GVC indicators based on these decompositions are available in the
 companion [gvc](https://cran.r-project.org/package=gvc) package.
@@ -44,7 +44,7 @@ Install the development version from GitHub:
 ``` r
 
 # install.packages("remotes")
-remotes::install_github("SebKrantz/decompr")
+remotes::install_github("bquast/decompr")
 ```
 
 ## Usage
@@ -82,7 +82,7 @@ decomp(x, method = "bm")
 ```
 
 See
-[`vignette("decompr")`](https://sebkrantz.github.io/decompr/articles/decompr.md)
+[`vignette("decompr")`](https://bquast.github.io/decompr/articles/decompr.md)
 for a detailed walk-through.
 
 ## References

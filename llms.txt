@@ -4,7 +4,7 @@
 [![CRAN
 Version](http://www.r-pkg.org/badges/version/decompr)](https://cran.r-project.org/package=decompr)
 [![R build
-status](https://github.com/SebKrantz/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/SebKrantz/decompr/actions?workflow=R-CMD-check)
+status](https://github.com/bquast/decompr/workflows/R-CMD-check/badge.svg)](https://github.com/bquast/decompr/actions?workflow=R-CMD-check)
 [![Total
 Downloads](http://cranlogs.r-pkg.org/badges/grand-total/decompr?color=brightgreen)](https://cran.r-project.org/package=decompr)
 [![Monthly
@@ -15,17 +15,17 @@ gross exports into value-added and double-counting components:
 
 | Function | Method | Level | Terms |
 |----|----|----|----|
-| [`leontief()`](https://sebkrantz.github.io/decompr/reference/leontief.md) | Hummels, Ishii & Yi (2001) | country × industry | continuous VA origin |
-| [`kww()`](https://sebkrantz.github.io/decompr/reference/kww.md) | Koopman, Wang & Wei (2014) | country | 9 |
-| [`wwz()`](https://sebkrantz.github.io/decompr/reference/wwz.md) | Wang, Wei & Zhu (2013) | bilateral country × sector | 16 |
-| [`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md) | Borin & Mancini (2019) | country / sector / bilateral | up to 13 |
+| [`leontief()`](https://bquast.github.io/decompr/reference/leontief.md) | Hummels, Ishii & Yi (2001) | country × industry | continuous VA origin |
+| [`kww()`](https://bquast.github.io/decompr/reference/kww.md) | Koopman, Wang & Wei (2014) | country | 9 |
+| [`wwz()`](https://bquast.github.io/decompr/reference/wwz.md) | Wang, Wei & Zhu (2013) | bilateral country × sector | 16 |
+| [`bm()`](https://bquast.github.io/decompr/reference/bm.md) | Borin & Mancini (2019) | country / sector / bilateral | up to 13 |
 
-[`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md) is the
+[`bm()`](https://bquast.github.io/decompr/reference/bm.md) is the
 recommended state-of-the-art decomposition. It also provides a corrected
 version of the KWW decomposition (use
 `perspective = "world", approach = "sink"`), which fixes a known
 systematic bias in
-[`kww()`](https://sebkrantz.github.io/decompr/reference/kww.md).
+[`kww()`](https://bquast.github.io/decompr/reference/kww.md).
 
 GVC indicators based on these decompositions are available in the
 companion [gvc](https://cran.r-project.org/package=gvc) package.
@@ -44,7 +44,7 @@ Install the development version from GitHub:
 ``` r
 
 # install.packages("remotes")
-remotes::install_github("SebKrantz/decompr")
+remotes::install_github("bquast/decompr")
 ```
 
 ## Usage
@@ -82,7 +82,7 @@ decomp(x, method = "bm")
 ```
 
 See
-[`vignette("decompr")`](https://sebkrantz.github.io/decompr/articles/decompr.md)
+[`vignette("decompr")`](https://bquast.github.io/decompr/articles/decompr.md)
 for a detailed walk-through.
 
 ## References
@@ -102,13 +102,17 @@ for a detailed walk-through.
 
 # Package index
 
+- [`decompr`](https://bquast.github.io/decompr/reference/decompr-package.md)
+  [`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
+  : Global Value Chain Decomposition
+
 ## Data Input
 
 Parse raw ICIO table matrices into a `decompr` class object.
 
-- [`load_tables_vectors()`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)
+- [`load_tables_vectors()`](https://bquast.github.io/decompr/reference/load_tables_vectors.md)
   : Load the Input-Output and Final Demand Tables
-- [`load_tables()`](https://sebkrantz.github.io/decompr/reference/load_tables.md)
+- [`load_tables()`](https://bquast.github.io/decompr/reference/load_tables.md)
   : Load the Input-Output and Final Demand Tables: Depreciated Interface
 
 ## Leontief Decomposition
@@ -116,7 +120,7 @@ Parse raw ICIO table matrices into a `decompr` class object.
 Derive the value-added origin of exports by country and industry
 (Hummels, Ishii & Yi 2001).
 
-- [`leontief()`](https://sebkrantz.github.io/decompr/reference/leontief.md)
+- [`leontief()`](https://bquast.github.io/decompr/reference/leontief.md)
   : Leontief Decomposition
 
 ## Koopman-Wang-Wei (KWW) Decomposition
@@ -124,17 +128,17 @@ Derive the value-added origin of exports by country and industry
 Split country-level exports into 9 value-added components (Koopman, Wang
 & Wei 2014).
 
-- [`kww()`](https://sebkrantz.github.io/decompr/reference/kww.md) :
+- [`kww()`](https://bquast.github.io/decompr/reference/kww.md) :
   Koopman-Wang-Wei Decomposition of Gross Exports
-- [`wwz2kww()`](https://sebkrantz.github.io/decompr/reference/wwz2kww.md)
-  : Koopman-Wang-Wei from Wang-Wei-Zhu Decomposition
+- [`wwz2kww()`](https://bquast.github.io/decompr/reference/wwz2kww.md) :
+  Koopman-Wang-Wei from Wang-Wei-Zhu Decomposition
 
 ## Wang-Wei-Zhu (WWZ) Decomposition
 
 Split bilateral exports into 16 value-added components by importing
 country (Wang, Wei & Zhu 2013).
 
-- [`wwz()`](https://sebkrantz.github.io/decompr/reference/wwz.md) :
+- [`wwz()`](https://bquast.github.io/decompr/reference/wwz.md) :
   Wang-Wei-Zhu Decomposition of Gross Exports
 
 ## Borin-Mancini (BM) Decomposition
@@ -142,25 +146,22 @@ country (Wang, Wei & Zhu 2013).
 Split gross exports into up to 13 value-added and GVC participation
 components (Borin & Mancini 2019).
 
-- [`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md) :
+- [`bm()`](https://bquast.github.io/decompr/reference/bm.md) :
   Borin-Mancini Decomposition of Gross Exports
 
 ## Convenience Interface
 
 High-level wrapper for running any decomposition with a single call.
 
-- [`decomp()`](https://sebkrantz.github.io/decompr/reference/decomp.md)
-  : Interface Function for Decompositions
-- [`decompr`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
-  [`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
-  : Global Value Chain Decomposition
+- [`decomp()`](https://bquast.github.io/decompr/reference/decomp.md) :
+  Interface Function for Decompositions
 
 ## Example Data
 
 Built-in 3×3 ICIO table (leather sector) for testing and learning.
 
-- [`leather`](https://sebkrantz.github.io/decompr/reference/leather.md)
-  : Leather Example ICIO Data
+- [`leather`](https://bquast.github.io/decompr/reference/leather.md) :
+  Leather Example ICIO Data
 
 # Articles
 
@@ -169,4 +170,5 @@ Built-in 3×3 ICIO table (leather sector) for testing and learning.
 Walk-through of the main workflow: loading ICIO tables, running all four
 decompositions, and interpreting the value-added components.
 
-- [decompr](https://sebkrantz.github.io/decompr/articles/decompr.md):
+- [Global Value Chain Decomposition with
+  decompr](https://bquast.github.io/decompr/articles/decompr.md):

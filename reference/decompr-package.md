@@ -16,26 +16,26 @@ complimentary 'gvc' package.
 
 Interface function for quick analysis
 
-[`decomp()`](https://sebkrantz.github.io/decompr/reference/decomp.md)
+[`decomp()`](https://bquast.github.io/decompr/reference/decomp.md)
 
 Function to load ICIO table and create a 'decompr' object
 
-[`load_tables_vectors()`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)
+[`load_tables_vectors()`](https://bquast.github.io/decompr/reference/load_tables_vectors.md)
 
 Functions to perform GVC decompositions on a 'decompr' object
 
-[`leontief()`](https://sebkrantz.github.io/decompr/reference/leontief.md)  
-[`kww()`](https://sebkrantz.github.io/decompr/reference/kww.md)  
-[`wwz()`](https://sebkrantz.github.io/decompr/reference/wwz.md)  
-[`bm()`](https://sebkrantz.github.io/decompr/reference/bm.md)
+[`leontief()`](https://bquast.github.io/decompr/reference/leontief.md)  
+[`kww()`](https://bquast.github.io/decompr/reference/kww.md)  
+[`wwz()`](https://bquast.github.io/decompr/reference/wwz.md)  
+[`bm()`](https://bquast.github.io/decompr/reference/bm.md)
 
 Function to obtain KWW decomposition from WWZ decomposition
 
-[`wwz2kww()`](https://sebkrantz.github.io/decompr/reference/wwz2kww.md)
+[`wwz2kww()`](https://bquast.github.io/decompr/reference/wwz2kww.md)
 
 Example ICIO data
 
-[`data("leather")`](https://sebkrantz.github.io/decompr/reference/leather.md)
+[`data("leather")`](https://bquast.github.io/decompr/reference/leather.md)
 
 ## References
 

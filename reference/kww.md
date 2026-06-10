@@ -14,29 +14,25 @@ kww(x)
 - x:
 
   an object of the class 'decompr' obtained from
-  [`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md).
+  [`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md).
 
 ## Value
 
-A data frame where a countries gross exports is decomposed into 9
+A data frame where a country's gross exports is decomposed into 9
 components (columns), as detailed in Figure 1 of the AER paper:
 
-|  |  |  |  |
-|----|----|----|----|
-| *Term* |  |  | *Description* |
-|  |  | DVA_FIN |  |
-|  | Domestic VA in final goods exports. |  |  |
-| DVA_INT |  |  | Domestic VA in intermediate exports absorbed by direct importers (used to produce a locally consumed final good). |
-|  |  | DVA_INTrex |  |
-|  | Domestic VA in intermediate exports reexported to third countries and absorbed there. |  |  |
-| RDV_FIN |  |  | Domestic VA in intermediate exports that returns home via final imports. |
-|  |  | RDV_INT |  |
-|  | Domestic VA in intermediate exports that returns home via intermediate imports (used to produce a domestically consumed final good). |  |  |
-| DDC |  |  | Double counted DVA in intermediate exports (arising from 2-way trade in intermediate goods). |
-|  |  | FVA_FIN |  |
-|  | Foreign VA in final goods exports. |  |  |
-| FVA_INT |  |  | Foreign VA in intermediate exports. |
-|  |  | FDC |  |
+|  |  |
+|----|----|
+| *Term* | *Description* |
+| `DVA_FIN` | Domestic VA in final goods exports. |
+| `DVA_INT` | Domestic VA in intermediate exports absorbed by direct importers (used to produce a locally consumed final good). |
+| `DVA_INTrex` | Domestic VA in intermediate exports reexported to third countries and absorbed there. |
+| `RDV_FIN` | Domestic VA in intermediate exports that returns home via final imports. |
+| `RDV_INT` | Domestic VA in intermediate exports that returns home via intermediate imports (used to produce a domestically consumed final good). |
+| `DDC` | Double counted DVA in intermediate exports (arising from 2-way trade in intermediate goods). |
+| `FVA_FIN` | Foreign VA in final goods exports. |
+| `FVA_INT` | Foreign VA in intermediate exports. |
+| `FDC` | Double counted FVA in intermediate exports (arising from 2-way trade in intermediate goods). |
 
 ## Note
 
@@ -53,7 +49,7 @@ importer and by third markets (hence indicators such as DAVAX cannot be
 derived from it). Borin and Mancini (2019) correct these issues using a
 sink-based, world-level perspective for the foreign content of exports;
 this corrected KWW decomposition is available as
-[`bm`](https://sebkrantz.github.io/decompr/reference/bm.md)`(x, perspective = "world", approach = "sink")`.
+[`bm`](https://bquast.github.io/decompr/reference/bm.md)`(x, perspective = "world", approach = "sink")`.
 
 ## References
 
@@ -67,10 +63,10 @@ Chains and Value-Added Trade. *World Bank Policy Research Working Paper
 
 ## See also
 
-[`bm`](https://sebkrantz.github.io/decompr/reference/bm.md),
-[`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md),
-[`wwz2kww`](https://sebkrantz.github.io/decompr/reference/wwz2kww.md),
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`bm`](https://bquast.github.io/decompr/reference/bm.md),
+[`wwz`](https://bquast.github.io/decompr/reference/wwz.md),
+[`wwz2kww`](https://bquast.github.io/decompr/reference/wwz2kww.md),
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
 
 ## Author
 

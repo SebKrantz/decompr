@@ -6,7 +6,7 @@ implemented in the Stata `icio` command (Belotti, Borin and Mancini
 2021). It is the R counterpart of the
 [`decompose()`](https://rdrr.io/r/stats/decompose.html) function in the
 Julia package `ICIO.jl`, and operates on a `decompr` object created by
-[`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md).
+[`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md).
 
 ## Usage
 
@@ -24,7 +24,7 @@ bm(
 - x:
 
   an object of class `decompr` obtained from
-  [`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md).
+  [`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md).
 
 - aggregation:
 
@@ -95,10 +95,10 @@ with intercountry input-output tables. *The Stata Journal, 21*(3),
 
 ## See also
 
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md),
-[`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md),
-[`leontief`](https://sebkrantz.github.io/decompr/reference/leontief.md),
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`kww`](https://bquast.github.io/decompr/reference/kww.md),
+[`wwz`](https://bquast.github.io/decompr/reference/wwz.md),
+[`leontief`](https://bquast.github.io/decompr/reference/leontief.md),
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
 
 ## Author
 

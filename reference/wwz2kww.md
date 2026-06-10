@@ -18,25 +18,25 @@ wwz2kww(x, aggregate = FALSE)
 - x:
 
   a data frame with the WWZ decomposition obtained from
-  [`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md).
+  [`wwz`](https://bquast.github.io/decompr/reference/wwz.md).
   Alternatively a 'decompr' class object from
-  [`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)
+  [`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md)
   can be supplied, which will toggle calling
-  [`wwz()`](https://sebkrantz.github.io/decompr/reference/wwz.md) first.
+  [`wwz()`](https://bquast.github.io/decompr/reference/wwz.md) first.
 
 - aggregate:
 
   logical. `TRUE` aggregates the KWW decomposition to the country level,
   giving exactly the same output as
-  [`kww`](https://sebkrantz.github.io/decompr/reference/kww.md). `FALSE`
+  [`kww`](https://bquast.github.io/decompr/reference/kww.md). `FALSE`
   maintains the sector level decomposition in KWW format.
 
 ## Value
 
 A data frame with exports decomposed into 9 components (columns), see
 the table above and
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md) for a
-shorter description of the 9 terms.
+[`kww`](https://bquast.github.io/decompr/reference/kww.md) for a shorter
+description of the 9 terms.
 
 ## Details
 
@@ -45,27 +45,25 @@ the KWW decomposition is provided in table E2 in the appendix of the WWZ
 (2013) paper. The table is reproduced here using the term naming
 conventions followed in this package.
 
-|  |  |  |  |  |  |  |
-|----|----|----|----|----|----|----|
-| *WWZ Terms* |  |  | *KWW Term* |  |  | *Description* |
-|  |  | DVA_FIN |  |  | DVA_FIN |  |
-|  | Domestic VA in final goods exports. |  |  | DVA_INT, DVA_INTrexI1 |  |  |
-| DVA_INT |  |  | Domestic VA in intermediate exports absorbed by direct importers. WWZ separates VA in final goods produced and consumed by direct importer from VA used by direct importer to produce intermediate exports for production of domestically consumed final goods in third countries (i.e. the VA is absorbed by the direct importer, but it may be exported to third countries as intermediates first before returning to direct importer as final goods). |  |  | DVA_INTrexF, DVA_INTrexI2 |
-|  |  | DVA_INTrex |  |  | Domestic VA in intermediate exports reexported to third countries and absorbed there. WWZ separates VA in final goods exports of direct importer to third countries from VA in intermediate exports from direct importers to third countries (that is ultimately absorbed in third countries). |  |
-|  | RDV_FIN, RDV_FIN2 |  |  | RDV_FIN |  |  |
-| Domestic VA in intermediate exports that returns home via final imports. WWZ separates final imports from the direct importer and third countries. |  |  | RDV_INT |  |  | RDV_INT |
-|  |  | Domestic VA in intermediate exports that returns via intermediate imports (i.e. is used to produce a locally consumed final good). |  |  | DDC_FIN, DDC_INT |  |
-|  | DDC |  |  | Double counted Domestic Value Added in gross exports. WWZ separates double counting due to final and intermediate exports production. |  |  |
-| MVA_FIN, OVA_FIN |  |  | FVA_FIN |  |  | Foreign VA in final goods exports. WWZ separates FVA from direct importer and from third countries. |
-|  |  | MVA_INT, OVA_INT |  |  | FVA_INT |  |
-|  | Foreign VA in intermediate exports. WWZ separates FVA from direct importer and from third countries. |  |  | MDC, ODC |  |  |
+|  |  |  |
+|----|----|----|
+| *WWZ Terms* | *KWW Term* | *Description* |
+| `DVA_FIN` | `DVA_FIN` | Domestic VA in final goods exports. |
+| `DVA_INT, DVA_INTrexI1` | `DVA_INT` | Domestic VA in intermediate exports absorbed by direct importers. WWZ separates VA absorbed directly from VA that transits through third countries before returning to the direct importer. |
+| `DVA_INTrexF, DVA_INTrexI2` | `DVA_INTrex` | Domestic VA in intermediate exports reexported to third countries and absorbed there. WWZ separates VA in final goods exports of direct importer to third countries from VA in intermediate exports to third countries. |
+| `RDV_FIN, RDV_FIN2` | `RDV_FIN` | Domestic VA in intermediate exports that returns home via final imports. WWZ separates final imports from the direct importer and from third countries. |
+| `RDV_INT` | `RDV_INT` | Domestic VA in intermediate exports that returns via intermediate imports (used to produce a locally consumed final good). |
+| `DDC_FIN, DDC_INT` | `DDC` | Double counted domestic VA in gross exports. WWZ separates double counting due to final and intermediate exports production. |
+| `MVA_FIN, OVA_FIN` | `FVA_FIN` | Foreign VA in final goods exports. WWZ separates FVA from direct importer and from third countries. |
+| `MVA_INT, OVA_INT` | `FVA_INT` | Foreign VA in intermediate exports. WWZ separates FVA from direct importer and from third countries. |
+| `MDC, ODC` | `FDC` | Double counted foreign VA in gross exports. WWZ separates FDC from direct importer and from third countries. |
 
 ## Note
 
 If both WWZ and KWW decompositions are required, it is computationally
 more efficient to call `wwz2kww(x, aggregate = TRUE)` on an already
 computed WWZ decomposition, than to call
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md) on a
+[`kww`](https://bquast.github.io/decompr/reference/kww.md) on a
 'decompr' object.
 
 ## References
@@ -80,9 +78,9 @@ w19677). *National Bureau of Economic Research*.
 
 ## See also
 
-[`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md),
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md),
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`wwz`](https://bquast.github.io/decompr/reference/wwz.md),
+[`kww`](https://bquast.github.io/decompr/reference/kww.md),
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
 
 ## Author
 

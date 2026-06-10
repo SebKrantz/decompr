@@ -5,13 +5,13 @@
 - **Bastiaan Quast**. Author, maintainer.
   [](https://orcid.org/0000-0002-2951-3577)
 
+- **Sebastian Krantz**. Author.
+
 - **Fei Wang**. Author.
 
 - **Victor Stolzenburg**. Author.
 
 - **Oliver Reiter**. Contributor.
-
-- **Sebastian Krantz**. Contributor.
 
 ## Citation
 

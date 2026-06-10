@@ -43,4 +43,4 @@ A list of class 'iot' with the following elements:
 
 ## See also
 
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)

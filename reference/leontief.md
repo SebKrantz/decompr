@@ -51,13 +51,13 @@ direct value added share in each industries output.
 
 \\V\\ is obtained as `diag(v / o)` where `o` is total industry output.
 `v` is either supplied to
-[`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)
+[`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md)
 or computed as `o - colSums(x)` with `x` the raw IO matrix. If `o` is
 not supplied to
-[`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md),
+[`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md),
 it is computed as `rowSums(x) + rowSums(y)` where `y` is the matrix of
 final demands. If both `o` and `v` are not supplied to
-[`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md),
+[`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md),
 this is equivalent to computing \\V\\ as `diag(1 - colSums(A))`, with
 \\A\\ is the row-normalized IO matrix also used to compute the Leontief
 Inverse \[\\B\\\].
@@ -77,10 +77,10 @@ w19677). *National Bureau of Economic Research*.
 
 ## See also
 
-[`bm`](https://sebkrantz.github.io/decompr/reference/bm.md),
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md),
-[`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md),
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`bm`](https://bquast.github.io/decompr/reference/bm.md),
+[`kww`](https://bquast.github.io/decompr/reference/kww.md),
+[`wwz`](https://bquast.github.io/decompr/reference/wwz.md),
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
 
 ## Author
 

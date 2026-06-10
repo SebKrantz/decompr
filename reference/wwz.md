@@ -14,63 +14,12 @@ wwz(x, verbose = FALSE)
 - x:
 
   an object of the class 'decompr' obtained from
-  [`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md).
+  [`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md).
 
 - verbose:
 
   logical, should timings of the calculation be displayed? Default is
   FALSE
-
-## Value
-
-A data frame with exports decomposed into 16 components (columns), as
-detailed in Table E1 in the appendix of the paper, and additional
-diagnostic items:
-
-|  |  |  |  |
-|----|----|----|----|
-| *Term* |  |  | *Description* |
-|  |  | DVA_FIN |  |
-|  | Domestic VA in final goods exports. |  |  |
-| DVA_INT |  |  | Domestic VA in intermediate exports used by direct importer to produce domestic final goods consumed at home. |
-|  |  | DVA_INTrexI1 |  |
-|  | Domestic VA in intermediate exports used by the direct importer to produce intermediate exports for production of final goods in third countries that are then imported and consumed by the direct importer. |  |  |
-| DVA_INTrexF |  |  | Domestic VA in intermediate exports used by the direct importer to produce final goods exports to third countries. |
-|  |  | DVA_INTrexI2 |  |
-|  | Domestic VA in Intermediate exports used by the direct importer to produce intermediate exports to third countries. |  |  |
-| RDV_INT |  |  | Domestic VA in intermediate exports that returns via intermediate imports (i.e. is used to produce a locally consumed final good). |
-|  |  | RDV_FIN |  |
-|  | Domestic VA in intermediate exports that returns home via final goods imports from the direct importer. |  |  |
-| RDV_FIN2 |  |  | Domestic VA in intermediate exports that returns home via in final goods imports from third countries. |
-|  |  | OVA_FIN |  |
-|  | Third countries’ VA in final goods exports. |  |  |
-| MVA_FIN |  |  | Direct importer’s VA in final goods exports. |
-|  |  | OVA_INT |  |
-|  | Third countries’ VA in intermediate exports. |  |  |
-| MVA_INT |  |  | Direct importer’s VA in intermediate exports. |
-|  |  | DDC_FIN |  |
-|  | Double counted Domestic VA used to produce final goods exports. |  |  |
-| DDC_INT |  |  | Double counted Domestic VA used to produce intermediate exports. |
-|  |  | ODC |  |
-|  | Double counted third countries’ VA in home country’s exports production. |  |  |
-| MDC |  |  | Double counted direct importer’s VA in home country’s exports production. |
-|  |  |  |  |
-|  |  | *Diagnostic Item* |  |
-|  | *Description* |  |  |
-| texp |  |  | Total Exports (matrix 'ESR' from [`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)). |
-|  |  | texpint |  |
-|  | Exports for intermediate production (matrix 'Eint' from [`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)). |  |  |
-| texpfd |  |  | Exports for final demand (matrix 'Efd' from [`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)). |
-|  |  | texpdiff |  |
-|  | Difference between Total Exports and the sum of the 16 terms. |  |  |
-| texpdiffpercent |  |  | ... in percent of total exports. |
-|  |  | texpfddiff |  |
-|  | Difference between Final Exports and the sum of terms DVA_FIN, OVA_FIN and MVA_FIN. |  |  |
-| texpfddiffpercent |  |  | ... in percent of final exports. |
-|  |  | texpintdiff |  |
-|  | Difference between Intermediate Exports and the sum of all the remaining terms (except DVA_FIN, OVA_FIN and MVA_FIN). |  |  |
-| texpintdiffpercent |  |  | ... in percent of intermediate exports. |
-|  |  | DViX_Fsr |  |
 
 ## Details
 
@@ -84,10 +33,10 @@ w19677). *National Bureau of Economic Research*.
 
 ## See also
 
-[`bm`](https://sebkrantz.github.io/decompr/reference/bm.md),
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md),
-[`wwz2kww`](https://sebkrantz.github.io/decompr/reference/wwz2kww.md),
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`bm`](https://bquast.github.io/decompr/reference/bm.md),
+[`kww`](https://bquast.github.io/decompr/reference/kww.md),
+[`wwz2kww`](https://bquast.github.io/decompr/reference/wwz2kww.md),
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
 
 ## Author
 

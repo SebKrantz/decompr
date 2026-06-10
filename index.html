@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Global Value Chain Decomposition • decompr</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="katex-auto.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -40,7 +41,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/SebKrantz/decompr" aria-label="GitHub"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/bquast/decompr" aria-label="GitHub"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -51,7 +52,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="decompr">decompr<a class="anchor" aria-label="anchor" href="#decompr"></a>
 </h1></div>
-<p><a href="https://www.gnu.org/licenses/gpl-3.0.html" class="external-link"><img src="http://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat" alt="License"></a> <a href="https://cran.r-project.org/package=decompr" class="external-link"><img src="http://www.r-pkg.org/badges/version/decompr" alt="CRAN Version"></a> <a href="https://github.com/SebKrantz/decompr/actions?workflow=R-CMD-check" class="external-link"><img src="https://github.com/SebKrantz/decompr/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://cran.r-project.org/package=decompr" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/decompr?color=brightgreen" alt="Total Downloads"></a> <a href="https://cran.r-project.org/package=decompr" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/decompr?color=brightgreen" alt="Monthly Downloads"></a></p>
+<p><a href="https://www.gnu.org/licenses/gpl-3.0.html" class="external-link"><img src="http://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat" alt="License"></a> <a href="https://cran.r-project.org/package=decompr" class="external-link"><img src="http://www.r-pkg.org/badges/version/decompr" alt="CRAN Version"></a> <a href="https://github.com/bquast/decompr/actions?workflow=R-CMD-check" class="external-link"><img src="https://github.com/bquast/decompr/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://cran.r-project.org/package=decompr" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/decompr?color=brightgreen" alt="Total Downloads"></a> <a href="https://cran.r-project.org/package=decompr" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/decompr?color=brightgreen" alt="Monthly Downloads"></a></p>
 <p><strong>decompr</strong> implements four global value chain (GVC) decompositions of gross exports into value-added and double-counting components:</p>
 <table class="table">
 <colgroup>
@@ -104,13 +105,13 @@
 <p>Install the development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SebKrantz/decompr"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bquast/decompr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bquast/decompr" class="external-link">decompr</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bquast.github.io/decompr/">decompr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load the built-in 3×3 leather-sector ICIO table</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">leather</span><span class="op">)</span></span>
@@ -179,6 +180,7 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Bastiaan Quast <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2951-3577" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Sebastian Krantz <br><small class="roles"> Author </small>   </li>
 <li>Fei Wang <br><small class="roles"> Author </small>   </li>
 <li>Victor Stolzenburg <br><small class="roles"> Author </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
@@ -192,7 +194,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Bastiaan Quast, Fei Wang, Victor Stolzenburg.</p>
+  <p>Developed by Bastiaan Quast, Sebastian Krantz, Fei Wang, Victor Stolzenburg.</p>
 </div>
 
 <div class="pkgdown-footer-right">

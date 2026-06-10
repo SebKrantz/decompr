@@ -104,10 +104,10 @@ Adapted from code by Fei Wang.
 
 ## See also
 
-[`leontief`](https://sebkrantz.github.io/decompr/reference/leontief.md),
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md),
-[`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md),
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`leontief`](https://bquast.github.io/decompr/reference/leontief.md),
+[`kww`](https://bquast.github.io/decompr/reference/kww.md),
+[`wwz`](https://bquast.github.io/decompr/reference/wwz.md),
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
 
 ## Author
 

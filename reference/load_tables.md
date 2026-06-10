@@ -3,7 +3,7 @@
 This function loads the demand tables and defines all variables for the
 decomposition. It is kept in the package for backward compatibility. New
 users should use
-[`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)
+[`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md)
 instead.
 
 ## Usage
@@ -39,7 +39,7 @@ Adapted from code by Fei Wang.
 
 ## See also
 
-[`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)
+[`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md)
 
 ## Author
 

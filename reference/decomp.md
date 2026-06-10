@@ -76,28 +76,28 @@ decomp(
 - ...:
 
   further arguments passed to
-  [`leontief`](https://sebkrantz.github.io/decompr/reference/leontief.md),
-  [`kww`](https://sebkrantz.github.io/decompr/reference/kww.md),
-  [`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md) or
-  [`bm`](https://sebkrantz.github.io/decompr/reference/bm.md).
+  [`leontief`](https://bquast.github.io/decompr/reference/leontief.md),
+  [`kww`](https://bquast.github.io/decompr/reference/kww.md),
+  [`wwz`](https://bquast.github.io/decompr/reference/wwz.md) or
+  [`bm`](https://bquast.github.io/decompr/reference/bm.md).
 
 ## Value
 
 Depends on the decomposition, see
-[`leontief`](https://sebkrantz.github.io/decompr/reference/leontief.md),
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md),
-[`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md) or
-[`bm`](https://sebkrantz.github.io/decompr/reference/bm.md).
+[`leontief`](https://bquast.github.io/decompr/reference/leontief.md),
+[`kww`](https://bquast.github.io/decompr/reference/kww.md),
+[`wwz`](https://bquast.github.io/decompr/reference/wwz.md) or
+[`bm`](https://bquast.github.io/decompr/reference/bm.md).
 
 ## Details
 
 For more detailed analysis with multiple decompositions consider using
-[`load_tables_vectors`](https://sebkrantz.github.io/decompr/reference/load_tables_vectors.md)
+[`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md)
 to create a 'decompr' class object and then run the decomposition
 functions
-[`leontief`](https://sebkrantz.github.io/decompr/reference/leontief.md),
-[`kww`](https://sebkrantz.github.io/decompr/reference/kww.md) and
-[`wwz`](https://sebkrantz.github.io/decompr/reference/wwz.md) on the
+[`leontief`](https://bquast.github.io/decompr/reference/leontief.md),
+[`kww`](https://bquast.github.io/decompr/reference/kww.md) and
+[`wwz`](https://bquast.github.io/decompr/reference/wwz.md) on the
 object.
 
 ## References
@@ -112,7 +112,7 @@ international production sharing at the bilateral and sector levels.
 
 ## See also
 
-[`decompr-package`](https://sebkrantz.github.io/decompr/reference/decompr-package.md)
+[`decompr-package`](https://bquast.github.io/decompr/reference/decompr-package.md)
 
 ## Author
 
