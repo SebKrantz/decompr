@@ -1,4 +1,4 @@
-decompr 6.9.0
+decompr 7.0.0
 =======================
 * Added the Borin-Mancini (2019) decomposition via the new `bm()` function (also available
   through `decomp(method = "bm")`). It decomposes gross exports into up to 13 value-added and
