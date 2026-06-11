@@ -17,6 +17,12 @@
   correction. Cross-references to
   [`bm()`](https://bquast.github.io/decompr/reference/bm.md) were added
   throughout.
+- New pkgdown website at <https://bquast.github.io/decompr/>, and
+  updated [package
+  vignette](https://bquast.github.io/decompr/articles/decompr.html).
+- These edits were made by [Sebastian
+  Krantz](https://github.com/SebKrantz), who is now also a package
+  author.
 
 ## decompr 6.4.0
 
