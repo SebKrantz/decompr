@@ -1,8 +1,6 @@
 # Changelog
 
-## decompr 6.9.0
-
-CRAN release: 2026-06-09
+## decompr 7.0.0
 
 - Added the Borin-Mancini (2019) decomposition via the new
   [`bm()`](https://bquast.github.io/decompr/reference/bm.md) function

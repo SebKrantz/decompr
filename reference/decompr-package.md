@@ -57,11 +57,11 @@ Chains and Value-Added Trade. *World Bank Policy Research Working Paper
 
 ## See also
 
-https://qua.st/decompr/
+https://bquast.github.io/decompr/
 
 ## Author
 
 Bastiaan Quast <bquast@gmail.com>  
+Sebastian Krantz  
 Fei Wang  
-Victor Stolzenburg  
-Sebastian Krantz
+Victor Stolzenburg

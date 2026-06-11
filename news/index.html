@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">decompr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">6.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">7.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="6.9.0" id="decompr-690">decompr 6.9.0<a class="anchor" aria-label="anchor" href="#decompr-690"></a></h2><p class="text-muted">CRAN release: 2026-06-09</p>
+<h2 class="pkg-version" data-toc-text="7.0.0" id="decompr-700">decompr 7.0.0<a class="anchor" aria-label="anchor" href="#decompr-700"></a></h2>
 <ul><li>Added the Borin-Mancini (2019) decomposition via the new <code><a href="../reference/bm.html">bm()</a></code> function (also available through <code>decomp(method = "bm")</code>). It decomposes gross exports into up to 13 value-added and GVC terms at the country, sector, or bilateral-sector level, under the exporter/source or world/sink perspective. It is the R counterpart of <code><a href="https://rdrr.io/r/stats/decompose.html" class="external-link">decompose()</a></code> in the Julia package <code>ICIO.jl</code> and reproduces the Stata <code>icio</code> command’s output.</li>
 <li>The <code><a href="../reference/kww.html">kww()</a></code> documentation now notes that the KWW decomposition is biased (it systematically underestimates foreign value added) and points to <code>bm(perspective = "world", approach = "sink")</code> for the Borin-Mancini correction. Cross-references to <code><a href="../reference/bm.html">bm()</a></code> were added throughout.</li>
 </ul></div>
