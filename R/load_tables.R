@@ -38,7 +38,7 @@ load_tables <- function(x, y) {
   
   warning("The API for the decomp function has changed,
   it now uses load_tables_vectors instead of load_tables,
-  for more info see http://qua.st/decompr/decompr-v2/.")
+  for more info see http://bquast.github.io/decompr/.")
   
   load_tables_vectors(x,
                       y,

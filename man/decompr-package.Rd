@@ -50,11 +50,11 @@ Wang, Zhi, Shang-Jin Wei, and Kunfu Zhu (2013). Quantifying international produc
 Borin, A., & Mancini, M. (2019). Measuring What Matters in Global Value Chains and Value-Added Trade. \emph{World Bank Policy Research Working Paper 8804}.
 }
 \seealso{
-https://qua.st/decompr/
+https://bquast.github.io/decompr/
 }
 \author{
 Bastiaan Quast \email{bquast@gmail.com}\cr
+Sebastian Krantz\cr
 Fei Wang\cr
-Victor Stolzenburg\cr
-Sebastian Krantz
+Victor Stolzenburg
 }
