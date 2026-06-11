@@ -8,7 +8,8 @@ decompr 7.0.0
 * The `kww()` documentation now notes that the KWW decomposition is biased (it systematically
   underestimates foreign value added) and points to `bm(perspective = "world", approach = "sink")`
   for the Borin-Mancini correction. Cross-references to `bm()` were added throughout.
-
+* New pkgdown website at https://bquast.github.io/decompr/, and updated [package vignette](https://bquast.github.io/decompr/articles/decompr.html).
+* These edits were made by [Sebastian Krantz](https://github.com/SebKrantz), who is now also a package author.
 
 decompr 6.4.0
 =======================
