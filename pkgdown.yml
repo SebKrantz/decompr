@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   decompr: decompr.html
-last_built: 2026-07-01T15:25Z
+last_built: 2026-07-01T15:30Z
 urls:
   reference: https://bquast.github.io/decompr/reference
   article: https://bquast.github.io/decompr/articles
