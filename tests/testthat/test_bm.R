@@ -97,3 +97,92 @@ test_that("only the origin country has positive domestic value added", {
   expect_true(all(s.arg$DVA[1:3] > 0))   # Argentina
   expect_true(all(s.arg$DVA[4:9] == 0))  # Turkey and Germany
 })
+
+## ------------------------------------------------------------------------------------------------
+## Extended Borin-Mancini variants: exporter/sink, self perimeter, world/source, imports
+## ------------------------------------------------------------------------------------------------
+
+wsrc <- bm(dec, perspective = "world", approach = "source")   # country, world/source (9 terms)
+seck <- bm(dec, aggregation = "sector",    approach = "sink")   # sector, exporter/sink (9 terms)
+bilk <- bm(dec, aggregation = "bilateral", approach = "sink")   # bilateral, exporter/sink (10 terms)
+secs <- bm(dec, aggregation = "sector",    perspective = "self")   # sector, self (9 terms)
+bils <- bm(dec, aggregation = "bilateral", perspective = "self")   # bilateral, self (9 terms)
+impc <- bm(dec, flow = "imports")                               # imports, country (3 terms)
+impb <- bm(dec, flow = "imports", aggregation = "bilateral")    # imports, bilateral (2 terms)
+
+context("bm extended variants: output format")
+
+test_that("output sizes match", {
+  expect_equal(dim(wsrc), c(3L, 10L))   # 1 id + 9 terms
+  expect_equal(dim(seck), c(9L, 11L))   # 2 id + 9 terms
+  expect_equal(dim(bilk), c(18L, 13L))  # 3 id + 10 terms (adds VAXIM)
+  expect_equal(dim(secs), c(9L, 11L))   # 2 id + 9 terms
+  expect_equal(dim(bils), c(18L, 12L))  # 3 id + 9 terms
+  expect_equal(dim(impc), c(3L, 4L))    # 1 id + 3 terms
+  expect_equal(dim(impb), c(9L, 4L))    # 2 id + 2 terms (all origins incl. self)
+  expect_true("VAXIM" %in% names(bilk))
+  expect_identical(attr(impc, "decomposition"), "bm")
+})
+
+context("bm extended variants: accounting identities")
+
+test_that("identities hold for every new export variant", {
+  for (d in list(wsrc, seck, bilk, secs, bils)) {
+    expect_equal(d$GEXP, d$DC + d$FC)
+    expect_equal(d$DC,   d$DVA + d$DDC)
+    expect_equal(d$FC,   d$FVA + d$FDC)
+    expect_equal(d$DVA,  d$VAX + d$REF)
+  }
+  expect_equal(impc$GIMP, impc$VA + impc$DC)                    # imports
+  for (d in list(wsrc, seck, bilk, secs, bils, impc, impb))
+    for (cl in setdiff(names(d), c("Exporting_Country","Exporting_Industry",
+                                   "Importing_Country","Origin_Country")))
+      expect_true(all(d[[cl]] >= -1e-9))                        # non-negativity
+})
+
+context("bm extended variants: cross-engine anchors")
+
+test_that("exporter/sink aggregates over importers to exporter/source (country totals)", {
+  agg <- aggregate(seck[c("DVA","FVA","VAX","REF")],
+                   list(Exporting_Country = seck$Exporting_Country), sum)
+  for (cl in c("DVA","FVA","VAX","REF")) expect_equal(cty[[cl]], agg[[cl]], tolerance = 1e-8)
+  expect_equal(seck$DC, sec$DC, tolerance = 1e-8)               # DC/FC perimeter-invariant
+  expect_equal(seck$FC, sec$FC, tolerance = 1e-8)
+})
+
+test_that("world source and sink FVA share the same world total and are <= FC", {
+  expect_equal(sum(wsrc$FVA), sum(ws$FVA), tolerance = 1e-8)
+  expect_true(all(wsrc$FVA <= wsrc$FC + 1e-9))
+  expect_true(all(ws$FVA   <= ws$FC   + 1e-9))
+})
+
+test_that("bilateral sink nests DAVAX <= VAXIM <= VAX", {
+  key <- function(d) paste(d$Exporting_Country, d$Exporting_Industry, d$Importing_Country)
+  o1 <- order(key(bil)); o2 <- order(key(bilk))
+  expect_true(all(bilk$VAXIM[o2] - bil$DAVAX[o1] >= -1e-9))
+  expect_true(all(bilk$VAX[o2]   - bilk$VAXIM[o2] >= -1e-9))
+})
+
+test_that("self perimeter dominates the exporter DVA (eq. 46) and shares DC", {
+  key <- function(d) paste(d$Exporting_Country, d$Exporting_Industry, d$Importing_Country)
+  o1 <- order(key(bil)); o2 <- order(key(bilk)); os <- order(key(bils))
+  expect_true(all(bils$DVA[os] - bil$DVA[o1]  >= -1e-9))
+  expect_true(all(bils$DVA[os] - bilk$DVA[o2] >= -1e-9))
+  expect_equal(bils$DC[os], bil$DC[o1], tolerance = 1e-8)
+})
+
+test_that("imports are world-consistent and additive over origin", {
+  expect_equal(sum(impc$GIMP), sum(cty$GEXP), tolerance = 1e-8)
+  agg <- aggregate(impb[c("VA","DC")], list(Importing_Country = impb$Importing_Country), sum)
+  expect_equal(impc$VA, agg$VA, tolerance = 1e-8)
+  expect_equal(impc$DC, agg$DC, tolerance = 1e-8)
+})
+
+context("bm extended variants: option validation")
+
+test_that("invalid combinations raise clear errors", {
+  expect_error(bm(dec, perspective = "self"),                        "sector.*bilateral")
+  expect_error(bm(dec, aggregation = "sector", perspective = "world"), "only.*country")
+  expect_error(bm(dec, flow = "imports", aggregation = "sector"),    "not yet implemented")
+  expect_error(bm(dec, perspective = "importer"),                    "flow = 'imports'")
+})

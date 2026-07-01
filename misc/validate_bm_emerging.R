@@ -1,8 +1,10 @@
-# Validate decompr::bm() on the EMERGING ICIO data against the ICIO.jl (Julia) output,
-# which is itself validated to ~1e-7 against the Stata `icio` command.
+# Validate decompr::bm() on the EMERGING ICIO data against GlobalValueChains.jl (Julia), whose
+# output is itself validated to ~1e-6 against the Stata `icio` command. The two implementations
+# share the same algorithm, so they should agree to ~1e-12 (double precision).
 #
-# Local/dev script (the misc/ folder is git-ignored). Requires the EMERGING .qs2 table and the
-# Julia-generated reference CSVs under ICIO_CSV/EMERGING_Broad_Sectors/.
+# Local/dev script (misc/ is git-ignored). Requires the EMERGING .qs2 table and the Julia-generated
+# reference CSVs under ICIO_CSV/EMERGING_Broad_Sectors/ (regenerate with the Julia harness
+# misc/ICIO_decomp_variants.jl). Run:
 #
 #   Rscript misc/validate_bm_emerging.R
 
@@ -11,55 +13,85 @@ suppressMessages({
   library(qs2); library(data.table)
 })
 
-base   <- "/Users/sebastiankrantz/Documents/Data/EMERGING/ICIO_CSV/EMERGING_Broad_Sectors"
-qs2f   <- "/Users/sebastiankrantz/Documents/Data/EMERGING/EMERGING_Broad_Sectors.qs2"
-yr     <- 2015L
-bil_sample_exporters <- c("CHN", "DEU", "USA", "ZAF")   # bilateral spot-check subset
+base <- "/Users/sebastiankrantz/Documents/Data/EMERGING/ICIO_CSV/EMERGING_Broad_Sectors"
+qs2f <- "/Users/sebastiankrantz/Documents/Data/EMERGING/EMERGING_Broad_Sectors.qs2"
+yr   <- 2015L
 
 EM  <- qs_read(qs2f)
 d   <- EM$DATA[[as.character(yr)]]
-# residual VA (no o/v) -> matches icio / ICIO.jl read_icio_csv
+# residual VA (no o/v) -> matches icio / GlobalValueChains.jl read_icio_csv
 dec <- load_tables_vectors(x = d$T, y = d$FD, k = EM$Regions$ISO3, i = EM$Sectors$Broad_Sector_Code)
 
-maxrel <- function(a, b, thr = 1) { a <- as.numeric(a); b <- as.numeric(b)
-  big <- abs(b) > thr; if (!any(big)) 0 else max(abs(a[big] - b[big]) / abs(b[big])) }
-report <- function(tag, R, J, cols) { cat(tag, "(", nrow(R), "rows )\n")
-  for (c in cols) { Rc <- R[[toupper(c)]]; Jc <- J[[c]]
-    cat("  ", formatC(c, width = 6, flag = "-"),
-        " maxrel=", formatC(maxrel(Rc, Jc), format = "e", digits = 2),
-        " maxabs=", formatC(max(abs(as.numeric(Rc) - as.numeric(Jc))), format = "g", digits = 4), "\n") } }
+## Read a Julia reference CSV, drop an optional `year` column (filter to yr).
+read_ref <- function(file) {
+  R <- fread(file.path(base, file))
+  if ("year" %in% names(R)) R <- R[year == yr][, year := NULL]
+  R[]
+}
 
-T9  <- c("gexp","dc","dva","vax","ref","ddc","fc","fva","fdc")
+## Diff R output `Rd` against Julia reference `J`. `idmap` maps R id columns -> Julia id columns;
+## `terms` are the (lower-case Julia) term columns, matched by name (order-independent). Inner-joins
+## on ids, so a sample reference automatically restricts the comparison.
+report <- function(tag, Rd, J, idmap, terms) {
+  Rd <- as.data.table(Rd); J <- as.data.table(J)
+  for (rc in names(idmap)) Rd[[idmap[[rc]]]] <- as.character(Rd[[rc]])
+  for (tc in terms)        Rd[[paste0(tc, ".R")]] <- as.numeric(Rd[[toupper(tc)]])
+  ids  <- unname(unlist(idmap))
+  keep <- c(ids, paste0(terms, ".R"))
+  m <- merge(J, Rd[, ..keep], by = ids)
+  cat(sprintf("== %-40s (%d / %d rows) ==\n", tag, nrow(m), nrow(J)))
+  worst <- 0
+  for (tc in terms) {
+    a <- as.numeric(m[[tc]]); b <- m[[paste0(tc, ".R")]]
+    big <- abs(a) > 1; mrel <- if (any(big)) max(abs(a[big] - b[big]) / abs(a[big])) else 0
+    mabs <- max(abs(a - b)); worst <- max(worst, mrel)
+    cat(sprintf("   %-6s maxrel=%.2e  maxabs=%.3g\n", tc, mrel, mabs))
+  }
+  cat(sprintf("   -> worst maxrel = %.2e  %s\n\n", worst, if (worst < 1e-9) "OK" else "**CHECK**"))
+}
+
 T13 <- c("gexp","dc","dva","vax","davax","ref","ddc","fc","fva","fdc","gvc","gvcb","gvcf")
+T9  <- c("gexp","dc","dva","vax","ref","ddc","fc","fva","fdc")
+T10 <- c("gexp","dc","dva","vax","vaxim","ref","ddc","fc","fva","fdc")
+idC <- list(Exporting_Country = "country")
+idS <- list(Exporting_Country = "from_region", Exporting_Industry = "from_sector")
+idB <- list(Exporting_Country = "from_region", Exporting_Industry = "from_sector",
+            Importing_Country = "to_region")
 
-## 1. country, world / sink (9 terms)
-RC <- bm(dec, perspective = "world", approach = "sink")
-RC$country <- as.character(RC$Exporting_Country)
-JC <- fread(file.path(base, "EM_GVC_KWW_BM19.csv"))[year == yr]
-RC <- RC[order(RC$country), ]; JC <- JC[order(JC$country)]
-stopifnot(RC$country == JC$country)
-report("== COUNTRY world/sink vs ICIO.jl ==", RC, JC, T9)
+## country/source reference: aggregate the sector/source reference to country
+secref <- read_ref("EM_GVC_SEC_BM19.csv")
+ctyref <- secref[, lapply(.SD, sum), by = .(country = from_region), .SDcols = T13]
 
-## 2. sector, exporter / source (13 terms)
-RS <- bm(dec, aggregation = "sector")
-RS$from_region <- as.character(RS$Exporting_Country)
-RS$from_sector <- as.character(RS$Exporting_Industry)
-JS <- fread(file.path(base, "EM_GVC_SEC_BM19.csv"))[year == yr]
-setorder(JS, from_region, from_sector); RS <- RS[order(RS$from_region, RS$from_sector), ]
-stopifnot(RS$from_region == JS$from_region, RS$from_sector == JS$from_sector)
-report("== SECTOR exporter/source vs ICIO.jl ==", RS, JS, T13)
-
-## 3. bilateral, exporter / source (13 terms) -- spot-check on a few exporters
-RB <- bm(dec, aggregation = "bilateral")
-RB$from_region <- as.character(RB$Exporting_Country)
-RB$from_sector <- as.character(RB$Exporting_Industry)
-RB$to_region   <- as.character(RB$Importing_Country)
-RB <- RB[RB$from_region %in% bil_sample_exporters, ]
-JB <- fread(file.path(base, "EM_GVC_BIL_SEC_BM19.csv"))[year == yr &
-        from_region %in% bil_sample_exporters]
-setorder(JB, from_region, from_sector, to_region)
-RB <- RB[order(RB$from_region, RB$from_sector, RB$to_region), ]
-stopifnot(nrow(RB) == nrow(JB), RB$from_region == JB$from_region,
-          RB$from_sector == JB$from_sector, RB$to_region == JB$to_region)
-report(sprintf("== BILATERAL exporter/source (%s) vs ICIO.jl ==",
-               paste(bil_sample_exporters, collapse = ",")), RB, JB, T13)
+## 1. country, exporter/source (13)
+report("country exporter/source", bm(dec), ctyref, idC, T13)
+## 2. country, world/sink (9)
+report("country world/sink", bm(dec, perspective = "world", approach = "sink"),
+       read_ref("EM_GVC_KWW_BM19.csv"), idC, T9)
+## 3. country, world/source (9)
+report("country world/source", bm(dec, perspective = "world", approach = "source"),
+       read_ref("EM_GVC_KWW_WS_BM19.csv"), idC, T9)
+## 4. sector, exporter/source (13)
+report("sector exporter/source", bm(dec, aggregation = "sector"), secref, idS, T13)
+## 5. sector, exporter/sink (9)
+report("sector exporter/sink", bm(dec, aggregation = "sector", approach = "sink"),
+       read_ref("EM_GVC_SEC_SINK_BM19.csv"), idS, T9)
+## 6. sector, self (9)
+report("sector self", bm(dec, aggregation = "sector", perspective = "self"),
+       read_ref("EM_GVC_SEC_SELF_BM19.csv"), idS, T9)
+## 7. bilateral, exporter/source (13) -- sample. NB: this older reference indexes sectors by
+## integer AND was written at ~7 significant figures, so expect ~1e-6 relative (CSV precision),
+## not the ~1e-12 of the freshly-written references. The source bilateral engine is unchanged.
+bsref <- read_ref("EM_GVC_BIL_SEC_SAMPLE.csv")
+if (is.numeric(bsref$from_sector))
+  bsref[, from_sector := EM$Sectors$Broad_Sector_Code[from_sector]]
+report("bilateral exporter/source", bm(dec, aggregation = "bilateral"), bsref, idB, T13)
+## 8. bilateral, exporter/sink (10, +VAXIM) -- sample
+report("bilateral exporter/sink", bm(dec, aggregation = "bilateral", approach = "sink"),
+       read_ref("EM_GVC_BIL_SINK_SAMPLE.csv"), idB, T10)
+## 9. bilateral, self (9) -- sample
+report("bilateral self", bm(dec, aggregation = "bilateral", perspective = "self"),
+       read_ref("EM_GVC_BIL_SELF_SAMPLE.csv"), idB, T9)
+## 10. imports, country (gimp va dc)
+report("imports country", bm(dec, flow = "imports"),
+       read_ref("EM_GVC_IMP_BM19.csv"), list(Importing_Country = "importer"),
+       c("gimp","va","dc"))
