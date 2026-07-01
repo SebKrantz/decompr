@@ -6,10 +6,25 @@
   [`bm()`](https://bquast.github.io/decompr/reference/bm.md) function
   (also available through `decomp(method = "bm")`). It decomposes gross
   exports into up to 13 value-added and GVC terms at the country,
-  sector, or bilateral-sector level, under the exporter/source or
-  world/sink perspective. It is the R counterpart of
+  sector, or bilateral-sector level, and covers the full set of Stata
+  `icio` perspectives and approaches:
+  - `perspective = "exporter"` with `approach = "source"` (13 terms) or
+    `approach = "sink"` (9 terms; the bilateral level adds `VAXIM`, the
+    domestic VA absorbed by the direct importer);
+  - `perspective = "world"` (country level) with `approach = "sink"`
+    (corrected KWW) or `approach = "source"` (9 terms);
+  - `perspective = "self"` (sector or bilateral level), the export
+    flow’s own perimeter giving the broader Johnson (2018) / Los et
+    al. (2016) domestic value added (9 terms); and
+  - `flow = "imports"`, an importer-perspective decomposition of gross
+    imports into value added and double counting (`GIMP = VA + DC`), at
+    the country level or by value-added origin.
+
+  It is the R counterpart of
   [`decompose()`](https://rdrr.io/r/stats/decompose.html) in the Julia
-  package `ICIO.jl` and reproduces the Stata `icio` command’s output.
+  package `GlobalValueChains.jl` (formerly `ICIO.jl`), reproduces the
+  Stata `icio` command’s output, and agrees with the Julia
+  implementation to machine precision on real ICIO tables.
 - The [`kww()`](https://bquast.github.io/decompr/reference/kww.md)
   documentation now notes that the KWW decomposition is biased (it
   systematically underestimates foreign value added) and points to

@@ -35,7 +35,17 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="7.0.0" id="decompr-700">decompr 7.0.0<a class="anchor" aria-label="anchor" href="#decompr-700"></a></h2>
-<ul><li>Added the Borin-Mancini (2019) decomposition via the new <code><a href="../reference/bm.html">bm()</a></code> function (also available through <code>decomp(method = "bm")</code>). It decomposes gross exports into up to 13 value-added and GVC terms at the country, sector, or bilateral-sector level, under the exporter/source or world/sink perspective. It is the R counterpart of <code><a href="https://rdrr.io/r/stats/decompose.html" class="external-link">decompose()</a></code> in the Julia package <code>ICIO.jl</code> and reproduces the Stata <code>icio</code> command’s output.</li>
+<ul><li>Added the Borin-Mancini (2019) decomposition via the new <code><a href="../reference/bm.html">bm()</a></code> function (also available through <code>decomp(method = "bm")</code>). It decomposes gross exports into up to 13 value-added and GVC terms at the country, sector, or bilateral-sector level, and covers the full set of Stata <code>icio</code> perspectives and approaches:
+<ul><li>
+<code>perspective = "exporter"</code> with <code>approach = "source"</code> (13 terms) or <code>approach = "sink"</code> (9 terms; the bilateral level adds <code>VAXIM</code>, the domestic VA absorbed by the direct importer);</li>
+<li>
+<code>perspective = "world"</code> (country level) with <code>approach = "sink"</code> (corrected KWW) or <code>approach = "source"</code> (9 terms);</li>
+<li>
+<code>perspective = "self"</code> (sector or bilateral level), the export flow’s own perimeter giving the broader Johnson (2018) / Los et al. (2016) domestic value added (9 terms); and</li>
+<li>
+<code>flow = "imports"</code>, an importer-perspective decomposition of gross imports into value added and double counting (<code>GIMP = VA + DC</code>), at the country level or by value-added origin.</li>
+</ul>
+It is the R counterpart of <code><a href="https://rdrr.io/r/stats/decompose.html" class="external-link">decompose()</a></code> in the Julia package <code>GlobalValueChains.jl</code> (formerly <code>ICIO.jl</code>), reproduces the Stata <code>icio</code> command’s output, and agrees with the Julia implementation to machine precision on real ICIO tables.</li>
 <li>The <code><a href="../reference/kww.html">kww()</a></code> documentation now notes that the KWW decomposition is biased (it systematically underestimates foreign value added) and points to <code>bm(perspective = "world", approach = "sink")</code> for the Borin-Mancini correction. Cross-references to <code><a href="../reference/bm.html">bm()</a></code> were added throughout.</li>
 <li>New pkgdown website at <a href="https://bquast.github.io/decompr/" class="uri">https://bquast.github.io/decompr/</a>, and updated <a href="https://bquast.github.io/decompr/articles/decompr.html">package vignette</a>.</li>
 <li>These edits were made by <a href="https://github.com/SebKrantz" class="external-link">Sebastian Krantz</a>, who is now also a package author.</li>

@@ -1,11 +1,12 @@
-# Borin-Mancini Decomposition of Gross Exports
+# Borin-Mancini Decomposition of Gross Exports and Imports
 
-Decomposes gross exports into value-added and Global Value Chain (GVC)
-components following the Borin and Mancini (2019) framework, as
-implemented in the Stata `icio` command (Belotti, Borin and Mancini
+Decomposes gross exports (or imports) into value-added and Global Value
+Chain (GVC) components following the Borin and Mancini (2019) framework,
+as implemented in the Stata `icio` command (Belotti, Borin and Mancini
 2021). It is the R counterpart of the
 [`decompose()`](https://rdrr.io/r/stats/decompose.html) function in the
-Julia package `ICIO.jl`, and operates on a `decompr` object created by
+Julia package `GlobalValueChains.jl`, and operates on a `decompr` object
+created by
 [`load_tables_vectors`](https://bquast.github.io/decompr/reference/load_tables_vectors.md).
 
 ## Usage
@@ -14,8 +15,9 @@ Julia package `ICIO.jl`, and operates on a `decompr` object created by
 bm(
   x,
   aggregation = c("country", "sector", "bilateral"),
-  perspective = c("exporter", "world"),
-  approach = c("source", "sink")
+  perspective = c("exporter", "world", "self", "importer"),
+  approach = c("source", "sink"),
+  flow = c("exports", "imports")
 )
 ```
 
@@ -29,43 +31,71 @@ bm(
 - aggregation:
 
   character. The level of the decomposition: `"country"` (one row per
-  exporting country), `"sector"` (one row per exporting
+  exporting/importing country), `"sector"` (one row per exporting
   country-industry), or `"bilateral"` (one row per exporting
-  country-industry and importing country, excluding within-country
-  flows). Default `"country"`.
+  country-industry and importing country for exports, or per importing
+  country and value-added origin for imports). Default `"country"`.
 
 - perspective:
 
   character. The accounting perspective defining the perimeter for
-  double counting: `"exporter"` (exporting-country perspective, additive
-  across sectors and destinations, 13 terms) or `"world"` (world
-  perspective, 9 terms, only available for `aggregation = "country"`).
-  Default `"exporter"`.
+  double counting: `"exporter"` (exporting-country perimeter, additive
+  across sectors and destinations), `"world"` (world perimeter,
+  "corrected KWW", country level only), `"self"` (the export flow's own
+  perimeter, giving the broader Johnson (2018) / Los et al. (2016) value
+  added \\DVA^\star \supseteq DVA\\; sector and bilateral levels only),
+  or `"importer"` (for `flow = "imports"`). Default `"exporter"`.
 
 - approach:
 
   character. How double-counted items are allocated across shipments:
   `"source"` (value added recorded the first time it leaves the country
-  of origin) or `"sink"` (the last time). `"exporter"` requires
-  `"source"`; `"world"` requires `"sink"`. Default `"source"`.
+  of origin) or `"sink"` (the last time). The two coincide at the
+  whole-country exporter perimeter (country level). `"world"` accepts
+  both; `"self"` and imports ignore it. Default `"source"`.
+
+- flow:
+
+  character. `"exports"` (default) decomposes gross exports; `"imports"`
+  decomposes a country's gross imports from the importer perspective
+  (Borin and Mancini 2019, eq. 51) into value added (`VA`) and double
+  counting (`DC`).
 
 ## Value
 
 A `data.frame` with one row per unit and one column per value-added
 term, preceded by factor identifier columns: `Exporting_Country`
-(country); `Exporting_Country, Exporting_Industry` (sector); or
-`Exporting_Country, Exporting_Industry, Importing_Country` (bilateral).
-The attribute `"decomposition"` is set to `"bm"`.
+(country exports); `Exporting_Country, Exporting_Industry` (sector);
+`Exporting_Country, Exporting_Industry, Importing_Country` (bilateral
+exports); `Importing_Country` (country imports); or
+`Importing_Country, Origin_Country` (bilateral imports). The attribute
+`"decomposition"` is set to `"bm"`.
 
 ## Details
 
-For the default exporter / source perspective the decomposition yields
-13 terms; the world / sink perspective (country level only, the
-"corrected KWW" decomposition) yields 9. All terms are in the same units
-as the input-output table (e.g. millions of USD). The following
-accounting identities hold: `GEXP = DC + FC`, `DC = DVA + DDC`,
-`FC = FVA + FDC`, `DVA = VAX + REF`, and (exporter/source only)
-`GVC = GVCB + GVCF = GEXP - DAVAX` and `GVCB = FC + DDC`.
+The supported combinations mirror the Stata `icio` command and
+`GlobalValueChains.jl`:
+
+|          |                 |                 |               |                      |
+|----------|-----------------|-----------------|---------------|----------------------|
+| **flow** | **aggregation** | **perspective** | **approach**  | **terms**            |
+| exports  | country         | exporter        | source(=sink) | 13                   |
+| exports  | country         | world           | source        | 9                    |
+| exports  | country         | world           | sink          | 9                    |
+| exports  | sector          | exporter        | source        | 13                   |
+| exports  | sector          | exporter        | sink          | 9                    |
+| exports  | sector          | self            | \-            | 9                    |
+| exports  | bilateral       | exporter        | source        | 13                   |
+| exports  | bilateral       | exporter        | sink          | 10 (adds VAXIM)      |
+| exports  | bilateral       | self            | \-            | 9                    |
+| imports  | country         | importer        | \-            | 3 (GIMP VA DC)       |
+| imports  | bilateral       | importer        | \-            | 2 (VA DC, by origin) |
+
+All terms are in the same units as the input-output table (e.g. millions
+of USD). The following accounting identities hold for exports:
+`GEXP = DC + FC`, `DC = DVA + DDC`, `FC = FVA + FDC`, `DVA = VAX + REF`,
+and (exporter/source only) `GVC = GVCB + GVCF = GEXP - DAVAX` and
+`GVCB = FC + DDC`; for imports `GIMP = VA + DC`.
 
 |  |  |
 |----|----|
@@ -75,13 +105,21 @@ accounting identities hold: `GEXP = DC + FC`, `DC = DVA + DDC`,
 | `DDC` / `FDC` | Domestic / foreign double counting. |
 | `VAX` | Domestic value added absorbed abroad (Johnson and Noguera 2012). |
 | `REF` | Reflection: domestic value added returning home. |
-| `DAVAX` | Domestic value added directly absorbed by the importer. |
+| `DAVAX` | Domestic value added directly absorbed by the importer (source approach). |
+| `VAXIM` | Domestic value added absorbed by the direct importer, incl. re-processing (sink approach; `DAVAX` \\\le\\ `VAXIM` \\\le\\ `VAX`). |
 | `GVC` | GVC-related trade (value added crossing more than one border). |
 | `GVCB` / `GVCF` | Backward / forward GVC participation. |
+| `GIMP` | Gross imports (`= VA + DC`). |
+| `VA` / `DC` | Value added / double counting in imports (by origin at the bilateral level). |
 
 The exporter / source decomposition is additive: the `"sector"` result
 is the sum of the `"bilateral"` result over importers, and the
 `"country"` result is the sum of the `"sector"` result over industries.
+The `"sink"` approach shares the domestic content `DC` and foreign
+content `FC` with `"source"` at every cell; only the value-added vs
+double-counted split differs. The `"self"` perimeter draws the boundary
+at the export flow itself, so `DVA` (there \\DVA^\star\\) is weakly
+larger than under either exporter approach.
 
 ## References
 
@@ -165,62 +203,127 @@ bm(dec, aggregation = "sector")
 #> 7  6.2971562  5.745103
 #> 8  5.9175939  6.166475
 #> 9 28.5428469  5.613936
-bm(dec, aggregation = "bilateral")
+bm(dec, aggregation = "bilateral", approach = "sink")   # adds VAXIM
 #>    Exporting_Country  Exporting_Industry Importing_Country GEXP         DC
-#> 1             Turkey         Agriculture         Argentina 10.7  8.9591095
-#> 2             Turkey Textile_and_Leather         Argentina 12.1  9.8259679
-#> 3             Turkey Transport_Equipment         Argentina  1.6  1.1210406
-#> 4            Germany         Agriculture         Argentina 14.9 12.7315559
-#> 5            Germany Textile_and_Leather         Argentina 10.3  8.5456405
-#> 6            Germany Transport_Equipment         Argentina 31.6 21.2976809
-#> 7          Argentina         Agriculture            Turkey 14.0 12.5642780
-#> 8          Argentina Textile_and_Leather            Turkey  6.8  5.2626672
-#> 9          Argentina Transport_Equipment            Turkey  0.9  0.6361968
-#> 10           Germany         Agriculture            Turkey 23.8 20.3363108
-#> 11           Germany Textile_and_Leather            Turkey 20.7 17.1742484
-#> 12           Germany Transport_Equipment            Turkey 46.3 31.2051464
-#> 13         Argentina         Agriculture           Germany 19.2 17.2310098
-#> 14         Argentina Textile_and_Leather           Germany 21.7 16.7940996
-#> 15         Argentina Transport_Equipment           Germany  1.7  1.2017051
-#> 16            Turkey         Agriculture           Germany 35.2 29.4729584
-#> 17            Turkey Textile_and_Leather           Germany 47.1 38.2481890
-#> 18            Turkey Transport_Equipment           Germany  6.9  4.8344878
-#>           DVA       VAX      DAVAX        REF        DDC         FC        FVA
-#> 1   8.7346635  8.224093  7.2163401 0.51057032 0.22444602  1.7408905  1.6914093
-#> 2   9.5634845  9.079825  8.0548444 0.48365898 0.26248341  2.2740321  2.2161439
-#> 3   1.0476459  1.018431  0.9626616 0.02921527 0.07339473  0.4789594  0.4625597
-#> 4  12.4755135 10.951482  9.6750702 1.52403152 0.25604243  2.1684441  2.0962209
-#> 5   8.3338317  7.706572  7.1641956 0.62725969 0.21180881  1.7543595  1.6952298
-#> 6  20.0216436 19.072854 18.2515939 0.94879005 1.27603729 10.3023191  9.9457626
-#> 7  12.4371868 11.215869  8.0001479 1.22131820 0.12709119  1.4357220  1.4094133
-#> 8   5.1463769  4.569764  2.9980790 0.57661309 0.11629029  1.5373328  1.5147708
-#> 9   0.6072535  0.575969  0.4840523 0.03128448 0.02894336  0.2638032  0.2574840
-#> 10 19.9273303 18.188155 16.9826710 1.73917503 0.40898052  3.4636892  3.3483259
-#> 11 16.7485744 13.780948 11.7517352 2.96762614 0.42567402  3.5257516  3.4069182
-#> 12 29.3355095 27.019131 25.4916229 2.31637845 1.86963692 15.0948536 14.5724306
-#> 13 17.0567133 15.324513 12.3850073 1.73220028 0.17429648  1.9689902  1.9329096
-#> 14 16.4229968 14.012735 10.0865741 2.41026176 0.37110283  4.9059004  4.8339009
-#> 15  1.1470343  1.033239  0.8449095 0.11379565 0.05467078  0.4982949  0.4863586
-#> 16 28.7345939 24.243961 20.4567369 4.49063336 0.73836447  5.7270416  5.5642624
-#> 17 37.2264561 30.622454 24.9707904 6.60400204 1.02173293  8.8518110  8.6264777
-#> 18  4.5179730  4.152680  3.8422274 0.36529320 0.31651476  2.0655122  1.9947889
-#>            FDC        GVC       GVCB       GVCF
-#> 1  0.049481197  3.4836599  1.9653365  1.5183234
-#> 2  0.057888186  4.0451556  2.5365155  1.5086400
-#> 3  0.016399618  0.6373384  0.5523541  0.0849843
-#> 4  0.072223200  5.2249298  2.4244865  2.8004433
-#> 5  0.059129673  3.1358044  1.9661683  1.1696361
-#> 6  0.356556480 13.3484061 11.5783564  1.7700497
-#> 7  0.026308772  5.9998521  1.5628132  4.4370389
-#> 8  0.022562035  3.8019210  1.6536231  2.1482979
-#> 9  0.006319211  0.4159477  0.2927465  0.1232012
-#> 10 0.115363232  6.8173290  3.8726697  2.9446593
-#> 11 0.118833420  8.9482648  3.9514256  4.9968392
-#> 12 0.522422944 20.8083771 16.9644905  3.8438866
-#> 13 0.036080601  6.8149927  2.1432867  4.6717060
-#> 14 0.071999434 11.6134259  5.2770032  6.3364227
-#> 15 0.011936287  0.8550905  0.5529657  0.3021248
-#> 16 0.162779264 14.7432631  6.4654061  8.2778570
-#> 17 0.225333351 22.1292096  9.8735439 12.2556656
-#> 18 0.070723354  3.0577726  2.3820270  0.6757457
+#> 1          Argentina         Agriculture            Turkey 14.0 12.5642780
+#> 2          Argentina Textile_and_Leather            Turkey  6.8  5.2626672
+#> 3          Argentina Transport_Equipment            Turkey  0.9  0.6361968
+#> 4          Argentina         Agriculture           Germany 19.2 17.2310098
+#> 5          Argentina Textile_and_Leather           Germany 21.7 16.7940996
+#> 6          Argentina Transport_Equipment           Germany  1.7  1.2017051
+#> 7             Turkey         Agriculture         Argentina 10.7  8.9591095
+#> 8             Turkey Textile_and_Leather         Argentina 12.1  9.8259679
+#> 9             Turkey Transport_Equipment         Argentina  1.6  1.1210406
+#> 10            Turkey         Agriculture           Germany 35.2 29.4729584
+#> 11            Turkey Textile_and_Leather           Germany 47.1 38.2481890
+#> 12            Turkey Transport_Equipment           Germany  6.9  4.8344878
+#> 13           Germany         Agriculture         Argentina 14.9 12.7315559
+#> 14           Germany Textile_and_Leather         Argentina 10.3  8.5456405
+#> 15           Germany Transport_Equipment         Argentina 31.6 21.2976809
+#> 16           Germany         Agriculture            Turkey 23.8 20.3363108
+#> 17           Germany Textile_and_Leather            Turkey 20.7 17.1742484
+#> 18           Germany Transport_Equipment            Turkey 46.3 31.2051464
+#>          DVA        VAX      VAXIM        REF         DDC         FC        FVA
+#> 1  12.357451 11.1495220  8.6467883 1.20792920 0.206826787  1.4357220  1.4120879
+#> 2   5.172419  4.5941134  3.3363970 0.57830552 0.090248234  1.5373328  1.5109695
+#> 3   0.631643  0.5994267  0.5204712 0.03221630 0.004553866  0.2638032  0.2619149
+#> 4  16.976780 15.2571096 12.8017283 1.71967093 0.254229282  1.9689902  1.9399394
+#> 5  16.492276 14.0624444 10.6916234 2.42983148 0.301823747  4.9059004  4.8177315
+#> 6   1.186992  1.0694721  0.9062318 0.11752004 0.014713011  0.4982949  0.4921940
+#> 7   8.736465  8.2433496  7.5330947 0.49311499 0.222644951  1.7408905  1.6976272
+#> 8   9.616970  9.1484943  8.4243413 0.46847613 0.208997408  2.2740321  2.2256637
+#> 9   1.110273  1.0804233  1.0374013 0.02984949 0.010767873  0.4789594  0.4743588
+#> 10 28.549111 24.0661500 21.1873007 4.48296078 0.923847609  5.7270416  5.5475241
+#> 11 37.042781 30.4161318 25.8904388 6.62664940 1.205407773  8.8518110  8.5728425
+#> 12  4.769217  4.3868947  4.1249837 0.38232239 0.065270704  2.0655122  2.0376256
+#> 13 11.915655 10.4287782  9.9293481 1.48687667 0.815901115  2.1684441  2.0294794
+#> 14  8.240814  7.6235647  7.3729745 0.61724929 0.304826489  1.7543595  1.6917808
+#> 15 20.852668 19.8817549 19.4540442 0.97091322 0.445012839 10.3023191 10.0870532
+#> 16 19.622631 17.9073356 17.3509403 1.71529555 0.713679736  3.4636892  3.3421349
+#> 17 15.942630 12.9978655 12.0796413 2.94476411 1.231618843  3.5257516  3.2729090
+#> 18 30.268005 27.8798434 27.1400321 2.38816205 0.937140969 15.0948536 14.6415307
+#>            FDC
+#> 1  0.023634130
+#> 2  0.026363357
+#> 3  0.001888290
+#> 4  0.029050821
+#> 5  0.088168896
+#> 6  0.006100846
+#> 7  0.043263282
+#> 8  0.048368449
+#> 9  0.004600523
+#> 10 0.179517565
+#> 11 0.278968549
+#> 12 0.027886602
+#> 13 0.138964627
+#> 14 0.062578720
+#> 15 0.215265891
+#> 16 0.121554238
+#> 17 0.252842628
+#> 18 0.453322843
+
+# Self (own-flow) perimeter, and the importer-perspective import decomposition
+bm(dec, aggregation = "bilateral", perspective = "self")
+#>    Exporting_Country  Exporting_Industry Importing_Country GEXP         DC
+#> 1          Argentina         Agriculture            Turkey 14.0 12.5642780
+#> 2          Argentina Textile_and_Leather            Turkey  6.8  5.2626672
+#> 3          Argentina Transport_Equipment            Turkey  0.9  0.6361968
+#> 4          Argentina         Agriculture           Germany 19.2 17.2310098
+#> 5          Argentina Textile_and_Leather           Germany 21.7 16.7940996
+#> 6          Argentina Transport_Equipment           Germany  1.7  1.2017051
+#> 7             Turkey         Agriculture         Argentina 10.7  8.9591095
+#> 8             Turkey Textile_and_Leather         Argentina 12.1  9.8259679
+#> 9             Turkey Transport_Equipment         Argentina  1.6  1.1210406
+#> 10            Turkey         Agriculture           Germany 35.2 29.4729584
+#> 11            Turkey Textile_and_Leather           Germany 47.1 38.2481890
+#> 12            Turkey Transport_Equipment           Germany  6.9  4.8344878
+#> 13           Germany         Agriculture         Argentina 14.9 12.7315559
+#> 14           Germany Textile_and_Leather         Argentina 10.3  8.5456405
+#> 15           Germany Transport_Equipment         Argentina 31.6 21.2976809
+#> 16           Germany         Agriculture            Turkey 23.8 20.3363108
+#> 17           Germany Textile_and_Leather            Turkey 20.7 17.1742484
+#> 18           Germany Transport_Equipment            Turkey 46.3 31.2051464
+#>           DVA        VAX        REF          DDC         FC        FVA
+#> 1  12.5408413 11.3093443 1.23149696 0.0234366879  1.4357220  1.4330439
+#> 2   5.2474241  4.6594894 0.58793467 0.0152430467  1.5373328  1.5328800
+#> 3   0.6359948  0.6032297 0.03276518 0.0002019919  0.2638032  0.2637194
+#> 4  17.1754381 15.4311807 1.74425742 0.0555716402  1.9689902  1.9626401
+#> 5  16.6868841 14.2378939 2.44899022 0.1072155581  4.9059004  4.8745805
+#> 6   1.2005992  1.0814895 0.11910974 0.0011059286  0.4982949  0.4978363
+#> 7   8.9460790  8.4231507 0.52292827 0.0130305178  1.7408905  1.7383585
+#> 8   9.7972118  9.3017324 0.49547939 0.0287561155  2.2740321  2.2673771
+#> 9   1.1206087  1.0893588 0.03124996 0.0004319315  0.4789594  0.4787748
+#> 10 29.1787145 24.6186741 4.56004040 0.2942438143  5.7270416  5.6698656
+#> 11 37.8044783 31.0979346 6.70654362 0.4437107309  8.8518110  8.7491227
+#> 12  4.8256250  4.4354571 0.39016788 0.0088628304  2.0655122  2.0617256
+#> 13 12.6972319 11.1461149 1.55111705 0.0343240023  2.1684441  2.1625980
+#> 14  8.5262197  7.8844796 0.64174009 0.0194208287  1.7543595  1.7503725
+#> 15 21.1724475 20.1691229 1.00332460 0.1252334637 10.3023191 10.2417399
+#> 16 20.2439513 18.4771429 1.76680841 0.0923595022  3.4636892  3.4479584
+#> 17 17.0792118 14.0530011 3.02621073 0.0950365762  3.5257516  3.5062413
+#> 18 30.7980923 28.3662260 2.43186631 0.4070541417 15.0948536 14.8979494
+#>             FDC
+#> 1  2.678114e-03
+#> 2  4.452806e-03
+#> 3  8.375726e-05
+#> 4  6.350180e-03
+#> 5  3.131986e-02
+#> 6  4.585805e-04
+#> 7  2.532027e-03
+#> 8  6.655052e-03
+#> 9  1.845407e-04
+#> 10 5.717602e-02
+#> 11 1.026884e-01
+#> 12 3.786603e-03
+#> 13 5.846079e-03
+#> 14 3.986959e-03
+#> 15 6.057914e-02
+#> 16 1.573071e-02
+#> 17 1.951034e-02
+#> 18 1.969041e-01
+bm(dec, flow = "imports")
+#>   Importing_Country  GIMP        VA       DC
+#> 1         Argentina  81.2  79.63233 1.567672
+#> 2            Turkey 112.5 108.71967 3.780326
+#> 3           Germany 131.8 127.14834 4.651660
 ```

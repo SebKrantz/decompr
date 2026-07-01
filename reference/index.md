@@ -45,7 +45,7 @@ Split gross exports into up to 13 value-added and GVC participation
 components (Borin & Mancini 2019).
 
 - [`bm()`](https://bquast.github.io/decompr/reference/bm.md) :
-  Borin-Mancini Decomposition of Gross Exports
+  Borin-Mancini Decomposition of Gross Exports and Imports
 
 ## Convenience Interface
 
