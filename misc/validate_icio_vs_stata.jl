@@ -1,7 +1,8 @@
-# Validate the Julia ICIO.jl decompositions against the Stata `icio` reference output for the
-# EMERGING ICIO data. This is the upstream reference that decompr::bm() is in turn checked
-# against (see validate_bm_emerging.R); ICIO.jl and bm() agree to ~1e-13, and ICIO.jl matches
-# Stata to ~1e-7 (the residual is Strassen-inversion vs BLAS-LU rounding, not a method gap).
+# Validate the Julia GlobalValueChains.jl decompositions against the Stata `icio` reference output
+# for the EMERGING ICIO data. This is the upstream reference that decompr::bm() is in turn checked
+# against (see validate_bm_emerging.R); GlobalValueChains.jl and bm() agree to ~1e-13, and
+# GlobalValueChains.jl matches Stata to ~1e-7 (the residual is Strassen-inversion vs BLAS-LU
+# rounding, not a method gap).
 #
 # Local/dev script (the misc/ folder is git-ignored). Requires the EMERGING CSV tables and the
 # renamed Stata references EM_GVC_KWW_BM19_STATA.csv / EM_GVC_SEC_BM19_STATA.csv, plus the
@@ -11,7 +12,7 @@
 
 import Pkg
 Pkg.activate("/Users/sebastiankrantz/Documents/Julia/ICIO.jl")
-using ICIO, CSV, DataFrames
+using GlobalValueChains, CSV, DataFrames
 
 base = "/Users/sebastiankrantz/Documents/Data/EMERGING/ICIO_CSV/EMERGING_Broad_Sectors"
 cl   = joinpath(base, "EM_countrylist.csv")
@@ -37,7 +38,7 @@ jc = sort(decompose(m; level = :country, perspective = :world, approach = :sink)
 sc = sort(CSV.read(joinpath(base, "EM_GVC_KWW_BM19_STATA.csv"), DataFrame)[!, :] |>
           df -> df[df.year .== year, :], :country)
 @assert jc.country == sc.country
-report("== ICIO.jl COUNTRY world/sink vs Stata ==", jc, sc,
+report("== GlobalValueChains.jl COUNTRY world/sink vs Stata ==", jc, sc,
        [:gexp,:dc,:dva,:vax,:ref,:ddc,:fc,:fva,:fdc])
 
 ## 2. sector, exporter / source (13 terms) -- Stata uses integer sector index
@@ -47,7 +48,7 @@ js = sort(js, [:from_region, :sidx])
 ss = CSV.read(joinpath(base, "EM_GVC_SEC_BM19_STATA.csv"), DataFrame)
 ss = sort(ss[ss.year .== year, :], [:from_region, :from_sector])
 @assert js.from_region == ss.from_region && js.sidx == ss.from_sector
-report("== ICIO.jl SECTOR exporter/source vs Stata ==", js, ss,
+report("== GlobalValueChains.jl SECTOR exporter/source vs Stata ==", js, ss,
        [:gexp,:dc,:dva,:vax,:davax,:ref,:ddc,:fc,:fva,:fdc,:gvc,:gvcb,:gvcf])
 
 ## 3. bilateral, exporter / source (13 terms) -- vs the Stata sample
@@ -61,7 +62,7 @@ if isfile(sbpath)
     jb = sort(jb, [:from_region, :sidx, :to_region])
     sb = sort(sb, [:from_region, :from_sector, :to_region])
     @assert jb.from_region == sb.from_region && jb.sidx == sb.from_sector && jb.to_region == sb.to_region
-    report("== ICIO.jl BILATERAL exporter/source vs Stata sample ==", jb, sb,
+    report("== GlobalValueChains.jl BILATERAL exporter/source vs Stata sample ==", jb, sb,
            [:gexp,:dc,:dva,:vax,:davax,:ref,:ddc,:fc,:fva,:fdc,:gvc,:gvcb,:gvcf])
 else
     println("(skip bilateral: ", sbpath, " not found -- run ICIO_decomp_bil_sample.do)")
